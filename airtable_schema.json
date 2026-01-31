@@ -1,0 +1,144 @@
+{
+  "tables": [
+    {
+      "name": "Stripe_Events",
+      "fields": [
+        {"name": "event_id", "type": "singleLineText", "primary": true},
+        {"name": "type", "type": "singleLineText"},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "livemode", "type": "checkbox"},
+        {"name": "api_version", "type": "singleLineText"},
+        {"name": "account", "type": "singleLineText"},
+        {"name": "request_id", "type": "singleLineText"},
+        {"name": "idempotency_key", "type": "singleLineText"},
+        {"name": "pending_webhooks", "type": "number"},
+        {"name": "data_object_id", "type": "singleLineText"},
+        {"name": "data_object_type", "type": "singleLineText"},
+        {"name": "payload_json", "type": "longText"}
+      ]
+    },
+    {
+      "name": "Charges",
+      "fields": [
+        {"name": "charge_id", "type": "singleLineText", "primary": true},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "status", "type": "singleLineText"},
+        {"name": "amount", "type": "number"},
+        {"name": "currency", "type": "singleLineText"},
+        {"name": "customer_id", "type": "singleLineText"},
+        {"name": "customer_email", "type": "email"},
+        {"name": "billing_name", "type": "singleLineText"},
+        {"name": "billing_phone", "type": "phoneNumber"},
+        {"name": "billing_address", "type": "longText"},
+        {"name": "description", "type": "longText"},
+        {"name": "statement_descriptor", "type": "singleLineText"},
+        {"name": "calculated_statement_descriptor", "type": "singleLineText"},
+        {"name": "invoice_id", "type": "singleLineText"},
+        {"name": "payment_intent_id", "type": "singleLineText"},
+        {"name": "receipt_url", "type": "url"},
+        {"name": "livemode", "type": "checkbox"}
+      ]
+    },
+    {
+      "name": "Payment_Intents",
+      "fields": [
+        {"name": "payment_intent_id", "type": "singleLineText", "primary": true},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "status", "type": "singleLineText"},
+        {"name": "amount", "type": "number"},
+        {"name": "currency", "type": "singleLineText"},
+        {"name": "customer_id", "type": "singleLineText"},
+        {"name": "charge_id", "type": "singleLineText"},
+        {"name": "receipt_url", "type": "url"},
+        {"name": "livemode", "type": "checkbox"}
+      ]
+    },
+    {
+      "name": "Checkout_Sessions",
+      "fields": [
+        {"name": "session_id", "type": "singleLineText", "primary": true},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "status", "type": "singleLineText"},
+        {"name": "mode", "type": "singleLineText"},
+        {"name": "amount_total", "type": "number"},
+        {"name": "currency", "type": "singleLineText"},
+        {"name": "customer_id", "type": "singleLineText"},
+        {"name": "customer_email", "type": "email"},
+        {"name": "payment_intent_id", "type": "singleLineText"},
+        {"name": "client_reference_id", "type": "singleLineText"},
+        {"name": "receipt_url", "type": "url"},
+        {"name": "livemode", "type": "checkbox"}
+      ]
+    },
+    {
+      "name": "Customers",
+      "fields": [
+        {"name": "customer_id", "type": "singleLineText", "primary": true},
+        {"name": "name", "type": "singleLineText"},
+        {"name": "email", "type": "email"},
+        {"name": "phone", "type": "phoneNumber"},
+        {"name": "address", "type": "longText"}
+      ]
+    },
+    {
+      "name": "Payouts",
+      "fields": [
+        {"name": "payout_id", "type": "singleLineText", "primary": true},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "arrival_date", "type": "dateTime"},
+        {"name": "status", "type": "singleLineText"},
+        {"name": "amount", "type": "number"},
+        {"name": "currency", "type": "singleLineText"}
+      ]
+    },
+    {
+      "name": "Tickets",
+      "fields": [
+        {"name": "ticket_id", "type": "singleLineText", "primary": true},
+        {"name": "qrcode_id", "type": "singleLineText"},
+        {"name": "charge_id", "type": "singleLineText"},
+        {"name": "session_id", "type": "singleLineText"},
+        {"name": "customer_email", "type": "email"},
+        {"name": "customer_name", "type": "singleLineText"},
+        {"name": "event_date", "type": "dateTime"},
+        {"name": "ticket_type", "type": "singleLineText"},
+        {"name": "quantity", "type": "number"},
+        {"name": "price", "type": "number"},
+        {"name": "currency", "type": "singleLineText"},
+        {"name": "pdf_data", "type": "singleLineText"},
+        {"name": "pdf_size_bytes", "type": "number"},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "validated_at", "type": "dateTime"},
+        {"name": "validated_by", "type": "singleLineText"},
+        {"name": "status", "type": "singleLineText"}
+      ]
+    },
+    {
+      "name": "QRCodes",
+      "fields": [
+        {"name": "qrcode_id", "type": "singleLineText", "primary": true},
+        {"name": "ticket_id", "type": "singleLineText"},
+        {"name": "data", "type": "singleLineText"},
+        {"name": "created_at", "type": "dateTime"},
+        {"name": "validated_at", "type": "dateTime"},
+        {"name": "status", "type": "singleLineText"}
+      ]
+    },
+    {
+      "name": "Logs",
+      "fields": [
+        {"name": "log_id", "type": "singleLineText", "primary": true},
+        {"name": "timestamp", "type": "dateTime"},
+        {"name": "level", "type": "singleLineText"},
+        {"name": "module", "type": "singleLineText"},
+        {"name": "action", "type": "singleLineText"},
+        {"name": "status", "type": "singleLineText"},
+        {"name": "message", "type": "longText"},
+        {"name": "user_id", "type": "singleLineText"},
+        {"name": "object_type", "type": "singleLineText"},
+        {"name": "object_id", "type": "singleLineText"},
+        {"name": "error_details", "type": "longText"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+streamlit
+stripe
+pandas
+plotly
+python-dotenv
+requests
+fastapi
+uvicorn
+qrcode
+pillow
+reportlab
