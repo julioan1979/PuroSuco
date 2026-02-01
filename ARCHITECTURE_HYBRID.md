@@ -6,7 +6,7 @@
 
 **Resposta: SIM, PERFEITAMENTE! **
 
-- **Airtable Automation**  Recebe webhooks em TEMPO REAL (~1-2 seg)
+- **stripe-webhook-airtable (Railway)**  Recebe webhooks em TEMPO REAL (~1-2 seg)
 - **Python Scripts**  Processam dados em paralelo (~10-15 seg)
 - **Resultado**: Dados aparecem imediatamente, processamento secundário em background
 
@@ -59,9 +59,11 @@ Isto evita:
              
              
 
- PASSO 3: Airtable Automation (Este Ficheiro - JavaScript)   
+ PASSO 3: stripe-webhook-airtable (Railway)                 
+  Endpoint: https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook
+  Repo: https://github.com/julioan1979/stripe-webhook-airtable
                                                               
-  Verifica event_id (não duplica)                          
+  performUpsert por event_id / charge_id (não duplica)     
   Cria/Atualiza: Charges table                             
   Cria/Atualiza: Customers table                           
   Log em Stripe_Events table                               
@@ -128,26 +130,37 @@ Isto evita:
 
 ### 2. Zero Duplicações
 
-**Airtable Automation**:
-- Cada event_id é verificado (Stripe garante unicidade)
-- Cada charge_id é verificado antes de criar
+**stripe-webhook-airtable (Railway)**:
+- `performUpsert` por **event_id** e **charge_id** (Stripe garante unicidade)
 - Mesmo se webhook for reenviado  Sem duplicação
 
-**Python Script**:
-- Verifica merge_on="charge_id" antes de upsert
-- Verifica se pdf_url já existe
-- Verifica se eceipt já foi scrapeado
+**Python Scripts**:
+- Verificam `merge_on="charge_id"` antes de upsert
+- Verificam se `pdf_url` já existe
+- Verificam se `receipt` já foi scrapeado
+  
+**Resultado**: os scripts complementam dados faltantes sem criar duplicados.
+### Webhook Oficial (Produção)
 
-### 3. Escalabilidade
+| Recurso | Propósito |
+|---------|-----------|
+| https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook | Endpoint oficial que recebe eventos da Stripe |
+| https://github.com/julioan1979/stripe-webhook-airtable | Repositório responsável pelo serviço |
 
-- Airtable processa ~100s webhooks/segundo
-- Python processa em paralelo (jobs separados)
-- Pode rodar Python em servidor separado se necessário
+| AIRTABLE_AUTOMATION_GUIDE.md | **Guia de setup** - Fluxo oficial (Railway) + histórico da automation |
+###  Webhook Oficial (Railway)
 
-### 4. Audit Completo
+- [ ] Endpoint oficial configurado no Stripe
+- [ ] URL em produção: https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook
+- [ ] Repositório de referência: https://github.com/julioan1979/stripe-webhook-airtable
 
-- Cada webhook registado em Stripe_Events
-- Rastreabilidade total
+- [ ] Colar webhook URL oficial (Railway)
+- [ ] Verificar logs no serviço Railway
+
+###  Histórico / Deprecated
+
+- [ ] **Legacy**: Airtable Automation com `airtable_automation_webhook.js`
+- [ ] Evitar habilitar para não gerar dupla ingestão
 - Logs com timestamp, status, erros
 
 ---

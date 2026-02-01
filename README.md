@@ -27,14 +27,11 @@ Sistema completo de gerenciamento de ingressos/tickets para eventos, integrando 
 └────────┬────────┘
          │ Webhook
          ▼
-┌─────────────────────────────┐
-│  webhook_server.py (FastAPI)│ ◄─ Recebe eventos
-└────────┬────────────────────┘
-         │
-         ▼
-┌─────────────────────────────┐
-│ stripe_airtable_sync.py     │ ◄─ Sincroniza dados
-└────────┬────────────────────┘
+┌────────────────────────────────────────────────────────────┐
+│ stripe-webhook-airtable (Railway)                           │
+│ https://stripe-webhook-airtable-production.up.railway.app   │
+│ /stripe/webhook                                             │
+└────────┬───────────────────────────────────────────────────┘
          │
          ▼
 ┌─────────────────────────────┐
@@ -43,6 +40,13 @@ Sistema completo de gerenciamento de ingressos/tickets para eventos, integrando 
 │  - Customers                │
 │  - Tickets                  │
 │  - Logs                     │
+└────────┬────────────────────┘
+         │
+         ▼
+┌─────────────────────────────┐
+│ Python enrichment scripts   │
+│ stripe_airtable_sync.py     │
+│ stripe_receipt_scraper.py   │
 └─────────────────────────────┘
 
 ┌────────────────────────────┐
@@ -83,14 +87,14 @@ cp .env.example .env
 ### Execução
 
 ```bash
-# Terminal 1: Inicie o webhook server
-python webhook_server.py
-
-# Terminal 2: Inicie o dashboard Streamlit
+# Terminal: Inicie o dashboard Streamlit
 streamlit run stripe_streamlit_app.py
 ```
 
 O dashboard estará disponível em `http://localhost:8501`
+
+**Webhook oficial (produção)**: configure no Stripe o endpoint  
+`https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook` (repo: https://github.com/julioan1979/stripe-webhook-airtable).
 
 ---
 
@@ -99,7 +103,7 @@ O dashboard estará disponível em `http://localhost:8501`
 ```
 purosuco/
 ├── stripe_streamlit_app.py      # Dashboard principal
-├── webhook_server.py            # Webhook Stripe (FastAPI)
+├── webhook_server.py            # (Legacy) Webhook Stripe local
 ├── stripe_airtable_sync.py      # Sincronização de dados
 ├── pdf_generator.py             # Geração de tickets PDF
 ├── qrcode_manager.py            # Gerenciamento de QR codes
@@ -123,6 +127,15 @@ purosuco/
 - **[DEPLOYMENT.md](docs/DEPLOYMENT.md)** - Deploy em produção (Docker, VPS, Streamlit Cloud)
 - **[WEBHOOKS.md](docs/WEBHOOKS.md)** - Configuração de webhooks Stripe
 - **[SYNC_GUIDE.md](SYNC_GUIDE.md)** - Guia passo-a-passo de sincronização
+
+---
+
+## 🌐 Webhook Oficial (Produção)
+
+- **Endpoint em produção**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+- **Repositório responsável**: https://github.com/julioan1979/stripe-webhook-airtable
+
+O serviço oficial recebe os eventos da Stripe e faz `performUpsert` por `event_id`/`charge_id`, garantindo deduplicação. Depois, os scripts Python complementam campos que faltam (PDF, recibo, QR) sem criar duplicados.
 
 ---
 
@@ -176,13 +189,11 @@ __pycache__/
    ↓
 4. Stripe envia webhook
    ↓
-5. webhook_server.py recebe
+5. stripe-webhook-airtable (Railway) recebe e grava no Airtable
    ↓
-6. Sincroniza com Airtable
+6. Python scripts enriquecem (PDF/QR + recibos) sem duplicar
    ↓
-7. Gera PDF + QR code
-   ↓
-8. Envia ticket ao cliente
+7. Envia ticket ao cliente
 ```
 
 ---
