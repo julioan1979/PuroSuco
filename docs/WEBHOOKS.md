@@ -13,15 +13,15 @@
 - O serviço usa `performUpsert` por **event_id**/**charge_id**, evitando duplicados.
 - Scripts Python completam dados faltantes (PDF/QR/recibos) sem criar duplicados.
 
-### Configurar Stripe Dashboard
+
 
 **Em produção:**
 
 1. Acesse: https://dashboard.stripe.com/webhooks
 2. Clique em **"Add endpoint"**
-3. **Endpoint URL**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+
 4. **Eventos a ouvir**:
-   - ✅ `charge.succeeded` - Pagamento bem-sucedido (gera ticket)
+   - ✅ `charge.succeeded` - Pagamento bem-sucedido
    - ✅ `charge.failed` - Pagamento falhou
    - ✅ `charge.updated` - Pagamento atualizado
    - ✅ `checkout.session.completed` - Checkout finalizado
@@ -30,7 +30,7 @@
    - ✅ `payout.paid` - Transferência paga
    - ✅ `payout.updated` - Transferência atualizada
 
-5. Copie o **Signing secret** e configure no serviço Railway
+
 
 ## Fluxo de Atualização Automática
 
@@ -45,14 +45,14 @@ performUpsert (event_id / charge_id)
        ↓
 Sincroniza para Airtable
        ↓
-Python enriquece dados sem duplicar
+
 ```
 
 ## Tabelas que Atualizam Automaticamente
 
 | Tabela | Evento Stripe | Quando Atualiza |
 |--------|---------------|-----------------|
-| **Charges** | `charge.succeeded` | Pagamento aprovado (+ gera ticket) |
+| **Charges** | `charge.succeeded` | Pagamento aprovado |
 | **Charges** | `charge.failed` | Pagamento falhou |
 | **Charges** | `charge.updated` | Status do charge mudou |
 | **Checkout_Sessions** | `checkout.session.completed` | Checkout finalizado |
@@ -60,9 +60,9 @@ Python enriquece dados sem duplicar
 | **Customers** | `customer.updated` | Dados do cliente alterados |
 | **Payouts** | `payout.paid` | Transferência paga |
 | **Payouts** | `payout.updated` | Status da transferência mudou |
-| **Tickets** | `charge.succeeded` | Gerado automaticamente |
-| **QRCodes** | `charge.succeeded` | Gerado automaticamente |
 | **Logs** | Todos os eventos | Sempre registra |
+
+> **Observação:** A geração de Tickets/QRCodes/PDFs é feita por processos Python (ex.: `stripe_airtable_sync.py`), não diretamente pelo webhook Node.
 
 ## Monitoramento
 
@@ -138,8 +138,7 @@ python sync_data_to_airtable.py  # Executa quando você quiser
 ```
 - ✅ Tempo real (< 1 segundo)
 - ✅ Sem intervenção manual
-- ✅ Gera tickets automaticamente
-- ⚠️ Requer serviço Railway ativo
+
 
 ## Problemas Comuns
 
