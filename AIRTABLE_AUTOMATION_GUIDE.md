@@ -1,16 +1,24 @@
-﻿#  Airtable Automation - Guia Completo
+﻿#  Airtable Automation - Guia Completo (Legacy)
 
 ## Resumo Executivo
 
-Esta automation do Airtable funciona em **TEMPO REAL** recebendo webhooks do Stripe e preenchendo automaticamente todas as tabelas de dados. Reduz drasticamente a carga no aplicativo Streamlit.
+⚠️ **Status**: Este guia é **legacy**. O fluxo oficial agora é:
 
-### Dois Componentes:
-1. **Airtable Automation (este ficheiro)**  Sincroniza dados brutos do Stripe
-2. **Python Scripts (no aplicativo)**  Gera PDFs e scrapia recibos
+**Stripe → stripe-webhook-airtable (Railway) → Airtable → scripts Python para enriquecimento**.
+
+### Fluxo Oficial (Recomendado)
+
+- **Endpoint em produção**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+- **Repositório responsável**: https://github.com/julioan1979/stripe-webhook-airtable
+- O serviço usa `performUpsert` por **event_id**/**charge_id** para deduplicar.
+- Os scripts Python complementam campos faltantes (PDF, QR, recibos) sem criar duplicados.
+
+### Por que manter este guia?
+Para referência histórica e troubleshooting de uma opção **deprecated** que pode causar **dupla ingestão** se usada junto com o fluxo oficial.
 
 ---
 
-## 1. Como Configurar a Automation
+## Histórico / Deprecated: Como Configurar a Automation
 
 ### Passo 1: Criar Automation no Airtable
 
@@ -39,7 +47,7 @@ Esta automation do Airtable funciona em **TEMPO REAL** recebendo webhooks do Str
 
 ---
 
-## 2. Webhook URL Setup no Stripe
+## 2. Webhook URL Setup no Stripe (Legacy)
 
 ### Passo 1: Ir ao Dashboard Stripe
 
@@ -68,7 +76,7 @@ Clicar **"Select events"** e escolher:
 
 ---
 
-## 3. Como Funcionam as Anti-Duplicações
+## 3. Como Funcionam as Anti-Duplicações (Legacy)
 
 ### Problem: Evitar Registos Duplicados
 
@@ -110,7 +118,7 @@ if (!existingCharge) {
 
 ---
 
-## 4. O que Esta Automation Faz
+## 4. O que Esta Automation Faz (Legacy)
 
 ### Processa Automaticamente:
 
@@ -144,7 +152,7 @@ if (!existingCharge) {
 
 ---
 
-## 5. O que Python Scripts Fazem
+## 5. O que Python Scripts Fazem (Legacy)
 
 ### PDF Generation
 
@@ -170,7 +178,8 @@ if (!existingCharge) {
 
 **Opção 2: Manual**
 - Botão no Streamlit para regenerar PDFs
-- Script egenerate_pdfs.py para dados antigos
+## 6. Arquitetura Híbrida (Legacy)
+egenerate_pdfs.py para dados antigos
 
 ---
 

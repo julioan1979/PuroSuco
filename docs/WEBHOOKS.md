@@ -2,30 +2,97 @@
 
 ## Status Atual
 ❌ **Sincronização Manual** - Requer executar scripts Python manualmente  
-✅ **Solução**: Configurar webhooks do Stripe para atualização automática em tempo real
+✅ **Solução**: Usar o webhook oficial (Railway) para atualização automática em tempo real
 
-## Como Ativar Sincronização Automática
+## Como Ativar Sincronização Automática (Fluxo Oficial)
 
-### 1. Instalar dependências Node.js (servidor webhook)
+### Endpoint Oficial (Produção)
+
+- **URL**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+- **Repositório**: https://github.com/julioan1979/stripe-webhook-airtable
+- O serviço usa `performUpsert` por **event_id**/**charge_id**, evitando duplicados.
+- Scripts Python completam dados faltantes (PDF/QR/recibos) sem criar duplicados.
+
+### Configurar Stripe Dashboard
+
+**Em produção:**
+
+1. Acesse: https://dashboard.stripe.com/webhooks
+2. Clique em **"Add endpoint"**
+3. **Endpoint URL**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+4. **Eventos a ouvir**:
+   - ✅ `charge.succeeded` - Pagamento bem-sucedido (gera ticket)
+   - ✅ `charge.failed` - Pagamento falhou
+   - ✅ `charge.updated` - Pagamento atualizado
+   - ✅ `checkout.session.completed` - Checkout finalizado
+   - ✅ `customer.created` - Cliente criado
+   - ✅ `customer.updated` - Cliente atualizado
+   - ✅ `payout.paid` - Transferência paga
+   - ✅ `payout.updated` - Transferência atualizada
+
+5. Copie o **Signing secret** e configure no serviço Railway
+
+## Fluxo de Atualização Automática
+
+```
+Pagamento no Stripe
+       ↓
+Stripe envia webhook
+       ↓
+stripe-webhook-airtable (Railway) recebe
+       ↓
+performUpsert (event_id / charge_id)
+       ↓
+Sincroniza para Airtable
+       ↓
+Python enriquece dados sem duplicar
+```
+
+## Tabelas que Atualizam Automaticamente
+
+| Tabela | Evento Stripe | Quando Atualiza |
+|--------|---------------|-----------------|
+| **Charges** | `charge.succeeded` | Pagamento aprovado (+ gera ticket) |
+| **Charges** | `charge.failed` | Pagamento falhou |
+| **Charges** | `charge.updated` | Status do charge mudou |
+| **Checkout_Sessions** | `checkout.session.completed` | Checkout finalizado |
+| **Customers** | `customer.created` | Novo cliente |
+| **Customers** | `customer.updated` | Dados do cliente alterados |
+| **Payouts** | `payout.paid` | Transferência paga |
+| **Payouts** | `payout.updated` | Status da transferência mudou |
+| **Tickets** | `charge.succeeded` | Gerado automaticamente |
+| **QRCodes** | `charge.succeeded` | Gerado automaticamente |
+| **Logs** | Todos os eventos | Sempre registra |
+
+## Monitoramento
+
+**Ver logs em tempo real:**
+- Use os logs do serviço no Railway.
+
+## Teste de Webhook
+
+**Enviar evento de teste:**
 ```bash
-npm install
+# Via Stripe CLI
+stripe trigger charge.succeeded
+
+# Via Dashboard do Stripe
+# https://dashboard.stripe.com/webhooks → Selecione webhook → "Send test webhook"
 ```
 
-### 2. Adicionar WEBHOOK_SECRET ao .env
-```env
-STRIPE_WEBHOOK_SECRET=whsec_xxxxx
-```
+**Verificar no Airtable:**
+1. Abra a tabela **Charges** no Airtable
+2. Verifique se o novo registro apareceu
+3. Confira a tabela **Logs** para detalhes
 
-### 3. Iniciar Servidor Webhook
-```bash
-npm start
-```
+---
 
-Servidor iniciará em: `http://localhost:8080/stripe/webhook`
+## Histórico / Deprecated
 
-### 4. Configurar Stripe Dashboard
+- **Legacy**: `server.js`, `webhook_server.py` e `airtable_automation_webhook.js`.
+- Evite ativar esses fluxos junto com o webhook oficial para não gerar **dupla ingestão**.
 
-**Em ambiente de desenvolvimento (localhost):**
+### Desenvolvimento local (legacy)
 
 1. **Instale Stripe CLI**:
    ```bash
@@ -50,173 +117,10 @@ Servidor iniciará em: `http://localhost:8080/stripe/webhook`
    stripe listen --forward-to localhost:5000/webhook
    ```
 
-4. **Copie o signing secret** que aparece e adicione ao `.env`:
-   ```env
-   STRIPE_WEBHOOK_SECRET=whsec_xxxxx
-   ```
-
-5. **Teste o webhook**:
+4. **Teste o webhook**:
    ```bash
-   # Em outro terminal
    stripe trigger charge.succeeded
    ```
-
-**Em produção:**
-
-1. Acesse: https://dashboard.stripe.com/webhooks
-2. Clique em **"Add endpoint"**
-3. **Endpoint URL**: `https://seu-dominio.com/stripe/webhook`
-4. **Eventos a ouvir**:
-   - ✅ `charge.succeeded` - Pagamento bem-sucedido (gera ticket)
-   - ✅ `charge.failed` - Pagamento falhou
-   - ✅ `charge.updated` - Pagamento atualizado
-   - ✅ `checkout.session.completed` - Checkout finalizado
-   - ✅ `customer.created` - Cliente criado
-   - ✅ `customer.updated` - Cliente atualizado
-   - ✅ `payout.paid` - Transferência paga
-   - ✅ `payout.updated` - Transferência atualizada
-
-5. Copie o **Signing secret** e adicione ao `.env`
-
-### 5. Deploy do Webhook
-
-**Opção A: Docker**
-```yaml
-# docker-compose.yml
-version: '3.8'
-services:
-  webhook:
-    build: .
-    ports:
-         - "8080:8080"
-    environment:
-      - STRIPE_API_KEY=${STRIPE_API_KEY}
-      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
-         - AIRTABLE_PAT=${AIRTABLE_PAT}
-         - AIRTABLE_BASE_ID=apppvZnFTV6a33RUf
-    restart: unless-stopped
-```
-
-```dockerfile
-# Dockerfile
-FROM node:20-slim
-WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
-COPY . .
-CMD ["node", "server.js"]
-```
-
-**Opção B: Heroku**
-```bash
-# Procfile
-web: node server.js
-```
-
-**Opção C: VPS (Ubuntu + Supervisor)**
-```ini
-# /etc/supervisor/conf.d/webhook.conf
-[program:purosuco-webhook]
-directory=/var/www/purosuco
-command=/usr/bin/node /var/www/purosuco/server.js
-user=www-data
-autostart=true
-autorestart=true
-stderr_logfile=/var/log/purosuco/webhook-err.log
-stdout_logfile=/var/log/purosuco/webhook-out.log
-environment=PORT="5000"
-```
-
-```bash
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisorctl start purosuco-webhook
-```
-
-**Nginx reverse proxy:**
-```nginx
-# /etc/nginx/sites-available/webhook
-server {
-   listen 80;
-    server_name webhook.seu-dominio.com;
-
-    location / {
-      proxy_pass http://localhost:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-## Fluxo de Atualização Automática
-
-```
-Pagamento no Stripe
-       ↓
-Stripe envia webhook
-       ↓
-server.js recebe
-       ↓
-Valida assinatura
-       ↓
-Identifica tipo de evento
-       ↓
-Sincroniza para Airtable
-       ↓
-Tabelas atualizadas automaticamente!
-```
-
-## Tabelas que Atualizam Automaticamente
-
-| Tabela | Evento Stripe | Quando Atualiza |
-|--------|---------------|-----------------|
-| **Charges** | `charge.succeeded` | Pagamento aprovado (+ gera ticket) |
-| **Charges** | `charge.failed` | Pagamento falhou |
-| **Charges** | `charge.updated` | Status do charge mudou |
-| **Checkout_Sessions** | `checkout.session.completed` | Checkout finalizado |
-| **Customers** | `customer.created` | Novo cliente |
-| **Customers** | `customer.updated` | Dados do cliente alterados |
-| **Payouts** | `payout.paid` | Transferência paga |
-| **Payouts** | `payout.updated` | Status da transferência mudou |
-| **Tickets** | `charge.succeeded` | Gerado automaticamente |
-| **QRCodes** | `charge.succeeded` | Gerado automaticamente |
-| **Logs** | Todos os eventos | Sempre registra |
-
-## Monitoramento
-
-**Ver logs em tempo real:**
-```bash
-# Desenvolvimento
-npm start
-
-# Produção (Docker)
-docker-compose logs -f webhook
-
-# Produção (Supervisor)
-sudo tail -f /var/log/purosuco/webhook-out.log
-```
-
-**Health check:**
-```bash
-curl http://localhost:8080/health
-# Resposta: {"status":"healthy","service":"stripe-webhook"}
-```
-
-## Teste de Webhook
-
-**Enviar evento de teste:**
-```bash
-# Via Stripe CLI
-stripe trigger charge.succeeded
-
-# Via Dashboard do Stripe
-# https://dashboard.stripe.com/webhooks → Selecione webhook → "Send test webhook"
-```
-
-**Verificar no Airtable:**
-1. Abra a tabela **Charges** no Airtable
-2. Verifique se o novo registro apareceu
-3. Confira a tabela **Logs** para detalhes
 
 ## Sincronização Manual vs Automática
 
@@ -230,26 +134,26 @@ python sync_data_to_airtable.py  # Executa quando você quiser
 
 ### Automática (com webhooks)
 ```bash
-npm start  # Executa 24/7
+# Fluxo oficial: endpoint no Railway (sem processo local)
 ```
 - ✅ Tempo real (< 1 segundo)
 - ✅ Sem intervenção manual
 - ✅ Gera tickets automaticamente
-- ⚠️ Requer servidor rodando
+- ⚠️ Requer serviço Railway ativo
 
 ## Problemas Comuns
 
 ### ❌ Webhook não recebe eventos
 **Solução:**
-1. Verifique se servidor está rodando: `curl http://localhost:8080/health`
-2. Confirme URL correta no Stripe Dashboard
-3. Teste com Stripe CLI: `stripe trigger charge.succeeded`
+1. Confirme URL correta no Stripe Dashboard
+2. Teste com Stripe CLI: `stripe trigger charge.succeeded`
+3. Verifique logs no Railway
 
 ### ❌ Erro de assinatura inválida
 **Solução:**
 1. Copie o **signing secret** correto do Stripe Dashboard
-2. Atualize `STRIPE_WEBHOOK_SECRET` no `.env`
-3. Reinicie o servidor webhook
+2. Atualize `STRIPE_WEBHOOK_SECRET` no serviço Railway
+3. Reenvie o evento de teste
 
 ### ❌ Eventos processados mas não sincronizam
 **Solução:**

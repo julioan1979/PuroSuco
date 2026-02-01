@@ -1,11 +1,18 @@
-﻿#  RESUMO EXECUTIVO - Automação Airtable + Python
+﻿#  RESUMO EXECUTIVO - Fluxo Oficial (Stripe → Railway → Airtable → Python)
 
 ##  O Que Foi Implementado
 
-### 3 Ficheiros Novos Criados:
+### Fluxo Oficial (Recomendado)
+
+- **Endpoint em produção**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+- **Repositório responsável**: https://github.com/julioan1979/stripe-webhook-airtable
+- O serviço faz `performUpsert` por **event_id**/**charge_id** para deduplicar.
+- Scripts Python completam dados faltantes (PDF/QR/recibos) sem criar duplicados.
+
+### Legacy (Histórico - não recomendado)
 
 1. **airtable_automation_webhook.js** (237 linhas)
-   - Script JavaScript para Airtable Automation
+   - Script JavaScript para Airtable Automation (**legacy**)
    - Processa webhooks do Stripe em TEMPO REAL
    - Anti-duplicação garantida (event_id, charge_id, etc.)
    - Suporta: charge.succeeded, payment_intent.succeeded, checkout.session.completed, customer events
@@ -29,7 +36,7 @@
 ### Dois Componentes (Trabalham Juntos):
 
 `
-AIRTABLE AUTOMATION (Este Projeto)
+stripe-webhook-airtable (Railway)
  Recebe webhooks em TEMPO REAL (~1-2 seg)
     Stripe_Events: Log completo
     Charges: Dados de pagamento
@@ -51,43 +58,39 @@ PYTHON SCRIPTS (Já Existem)
 
 ### Anti-Duplicação (Garantida):
 
- Airtable verifica event_id antes de criar evento
- Airtable verifica charge_id antes de criar charge
- Python verifica merge_on="charge_id" antes de upsert
+ stripe-webhook-airtable usa `performUpsert` por event_id e charge_id
+ Python verifica `merge_on="charge_id"` antes de upsert
  Python verifica se pdf_url já existe
- Python verifica se eceipt já foi scrapeado
+ Python verifica se receipt já foi scrapeado
+### PASSO 1: Configurar Webhook no Stripe (Oficial)
 
-**Resultado**: Zero duplicações, mesmo com reenvios de webhook
+2. Add endpoint  Colar URL oficial:
+   `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+   - charge.succeeded
+   - payment_intent.succeeded
+   - checkout.session.completed
+   - customer.created / customer.updated
 
----
+### PASSO 2: Validar Fluxo
 
-##  Como Usar
+### Histórico / Deprecated
 
-### PASSO 1: Copiar Script para Airtable
+**Não recomendado** usar Airtable Automation + `airtable_automation_webhook.js` ao mesmo tempo que o serviço Railway, para evitar **dupla ingestão**.
+### Depois (Com Webhook Oficial):
+### Webhook Oficial (Produção):
+- https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook
+- https://github.com/julioan1979/stripe-webhook-airtable
 
-1. Abrir: irtable_automation_webhook.js
-2. Copiar TODO o código
-3. No Airtable: Automations  Create new  When webhook received
-4. Action: Run script  Colar código
-5. Save e ativar (toggle On)
-
-### PASSO 2: Configurar Webhook no Stripe
-
-1. Ir: https://dashboard.stripe.com/webhooks
-2. Add endpoint  Colar webhook URL do Airtable
-3. Select events:
-   -  charge.succeeded
-   -  payment_intent.succeeded
-   -  checkout.session.completed
-   -  customer.created / customer.updated
-4. Create endpoint
-
-### PASSO 3: Testar
-
-1. Stripe Dashboard  Webhooks  Seu endpoint
-2. Clicar "Send test webhook"
-3. Esperar 2 segundos
-4. Verificar dados apareceu em Airtable 
+### Airtable (Histórico/Deprecated):
+- irtable_automation_webhook.js  **LEGACY - não usar em produção**
+- AIRTABLE_AUTOMATION_GUIDE.md  **Guia de setup + histórico**
+1. **Verificar logs no Railway**:
+   - Logs do serviço `stripe-webhook-airtable`
+1. **AIRTABLE_AUTOMATION_GUIDE.md** - Fluxo oficial + histórico (legacy)
+3. **airtable_automation_webhook.js** - (Legacy) ver código comentado
+- [ ] Configurei webhook oficial no Stripe (Railway)
+- [ ] Verifiquei sem duplicações (performUpsert por event_id/charge_id)
+**R**:  SIM! Webhook oficial recebe em tempo real, Python processa em paralelo
 
 ---
 
