@@ -48,6 +48,31 @@ env/
 logs/
 
 # PDFs gerados
+pdf_output/
+*.pdf
+
+# Streamlit cache
+.streamlit/
+*.streamlit
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs adicionais
+*.sublime-project
+*.sublime-workspace
+Atom/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
 *.pdf
 tickets/
 generated_pdfs/

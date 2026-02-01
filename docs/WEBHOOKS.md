@@ -6,9 +6,9 @@
 
 ## Como Ativar Sincronização Automática
 
-### 1. Instalar Flask (servidor webhook)
+### 1. Instalar dependências Node.js (servidor webhook)
 ```bash
-pip install flask
+npm install
 ```
 
 ### 2. Adicionar WEBHOOK_SECRET ao .env
@@ -18,10 +18,10 @@ STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 
 ### 3. Iniciar Servidor Webhook
 ```bash
-python webhook_server.py
+npm start
 ```
 
-Servidor iniciará em: `http://localhost:5000/webhook`
+Servidor iniciará em: `http://localhost:8080/stripe/webhook`
 
 ### 4. Configurar Stripe Dashboard
 
@@ -65,7 +65,7 @@ Servidor iniciará em: `http://localhost:5000/webhook`
 
 1. Acesse: https://dashboard.stripe.com/webhooks
 2. Clique em **"Add endpoint"**
-3. **Endpoint URL**: `https://seu-dominio.com/webhook`
+3. **Endpoint URL**: `https://seu-dominio.com/stripe/webhook`
 4. **Eventos a ouvir**:
    - ✅ `charge.succeeded` - Pagamento bem-sucedido (gera ticket)
    - ✅ `charge.failed` - Pagamento falhou
@@ -88,29 +88,29 @@ services:
   webhook:
     build: .
     ports:
-      - "5000:5000"
+         - "8080:8080"
     environment:
       - STRIPE_API_KEY=${STRIPE_API_KEY}
       - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
-      - Airtable_API_Key=${AIRTABLE_API_KEY}
-      - Airtable_Base_ID=apppvZnFTV6a33RUf
+         - AIRTABLE_PAT=${AIRTABLE_PAT}
+         - AIRTABLE_BASE_ID=apppvZnFTV6a33RUf
     restart: unless-stopped
 ```
 
 ```dockerfile
 # Dockerfile
-FROM python:3.13-slim
+FROM node:20-slim
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt flask
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
 COPY . .
-CMD ["python", "webhook_server.py"]
+CMD ["node", "server.js"]
 ```
 
 **Opção B: Heroku**
 ```bash
 # Procfile
-web: python webhook_server.py
+web: node server.js
 ```
 
 **Opção C: VPS (Ubuntu + Supervisor)**
@@ -118,7 +118,7 @@ web: python webhook_server.py
 # /etc/supervisor/conf.d/webhook.conf
 [program:purosuco-webhook]
 directory=/var/www/purosuco
-command=/var/www/purosuco/venv/bin/python webhook_server.py
+command=/usr/bin/node /var/www/purosuco/server.js
 user=www-data
 autostart=true
 autorestart=true
@@ -137,11 +137,11 @@ sudo supervisorctl start purosuco-webhook
 ```nginx
 # /etc/nginx/sites-available/webhook
 server {
-    listen 80;
+   listen 80;
     server_name webhook.seu-dominio.com;
 
     location / {
-        proxy_pass http://localhost:5000;
+      proxy_pass http://localhost:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -155,7 +155,7 @@ Pagamento no Stripe
        ↓
 Stripe envia webhook
        ↓
-webhook_server.py recebe
+server.js recebe
        ↓
 Valida assinatura
        ↓
@@ -187,7 +187,7 @@ Tabelas atualizadas automaticamente!
 **Ver logs em tempo real:**
 ```bash
 # Desenvolvimento
-python webhook_server.py
+npm start
 
 # Produção (Docker)
 docker-compose logs -f webhook
@@ -198,7 +198,7 @@ sudo tail -f /var/log/purosuco/webhook-out.log
 
 **Health check:**
 ```bash
-curl http://localhost:5000/health
+curl http://localhost:8080/health
 # Resposta: {"status":"healthy","service":"stripe-webhook"}
 ```
 
@@ -230,7 +230,7 @@ python sync_data_to_airtable.py  # Executa quando você quiser
 
 ### Automática (com webhooks)
 ```bash
-python webhook_server.py  # Executa 24/7
+npm start  # Executa 24/7
 ```
 - ✅ Tempo real (< 1 segundo)
 - ✅ Sem intervenção manual
@@ -241,7 +241,7 @@ python webhook_server.py  # Executa 24/7
 
 ### ❌ Webhook não recebe eventos
 **Solução:**
-1. Verifique se servidor está rodando: `curl http://localhost:5000/health`
+1. Verifique se servidor está rodando: `curl http://localhost:8080/health`
 2. Confirme URL correta no Stripe Dashboard
 3. Teste com Stripe CLI: `stripe trigger charge.succeeded`
 

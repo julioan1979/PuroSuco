@@ -8,6 +8,8 @@ import pandas as pd
 import plotly.express as px
 import re
 import requests
+import cv2
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 from dotenv import load_dotenv
 from datetime import datetime, date, timezone, timedelta
 from airtable_client import upsert_record
@@ -21,7 +23,7 @@ from stripe_airtable_payloads import (
 from create_airtable_schema import ensure_schema
 from app_logger import log_action
 from stripe_airtable_sync import sync_charge_to_airtable, sync_customer_to_airtable, sync_checkout_session_to_airtable
-from qrcode_manager import validate_qrcode, mark_ticket_as_validated, get_ticket_data
+from qrcode_manager import validate_qrcode, mark_ticket_as_validated, get_ticket_data, get_ticket_by_charge_id
 
 # ---------------------------------------------------------
 # CONFIG
@@ -535,15 +537,56 @@ with st.spinner("A carregar dados da Stripe..."):
 
     # =========================================================
     # AUTO-SYNC para Airtable (ao carregar dados)
+    # IMPORTANTE: Gera bilhetes automaticamente para charges sem ticket ou sem PDF
     # =========================================================
     with st.spinner("A sincronizar dados com Airtable..."):
         sync_count = 0
+        ticket_count = 0
         for ch in charges[:50]:  # Sincronizar últimos 50 charges
             try:
+                # SEMPRE sincronizar charge
                 sync_charge_to_airtable(ch, auto_generate_ticket=False)
                 sync_count += 1
-            except Exception:
-                pass
+                
+                # SEMPRE verificar se tem ticket E se tem pdf_url
+                if ch.get("status") == "succeeded":
+                    existing_ticket = get_ticket_by_charge_id(ch.get("id"))
+                    needs_pdf = False
+                    
+                    if not existing_ticket.get("success"):
+                        # Não tem ticket, gerar
+                        needs_pdf = True
+                    else:
+                        # Tem ticket, verificar se tem pdf_url
+                        from airtable_client import _headers, _table_url, get_airtable_config
+                        import requests
+                        api_key, base_id = get_airtable_config()
+                        ticket_id = existing_ticket.get("ticket_id")
+                        
+                        # Buscar ticket no Airtable para verificar pdf_url
+                        url = _table_url(base_id, "Tickets")
+                        params = {"filterByFormula": f"{{ticket_id}}='{ticket_id}'"}
+                        resp = requests.get(url, headers=_headers(api_key), params=params)
+                        records = resp.json().get("records", [])
+                        
+                        if records and not records[0].get("fields", {}).get("pdf_url"):
+                            needs_pdf = True
+                    
+                    if needs_pdf:
+                        # Gerar/atualizar ticket com PDF no Cloudinary
+                        from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                        try:
+                            if _generate_and_store_ticket_from_charge(ch):
+                                ticket_count += 1
+                                print(f"[AUTO-SYNC] PDF gerado para {ch.get('id')[:20]}")
+                        except Exception as pdf_err:
+                            print(f"[AUTO-SYNC PDF ERROR] {ch.get('id')}: {str(pdf_err)}")
+                            import traceback
+                            traceback.print_exc()
+            except Exception as e:
+                print(f"[AUTO-SYNC ERROR] {ch.get('id')}: {str(e)}")
+                import traceback
+                traceback.print_exc()
         
         for cust in customers_raw[:20]:  # Sincronizar últimos 20 clientes
             try:
@@ -557,7 +600,12 @@ with st.spinner("A carregar dados da Stripe..."):
                 pass
         
         if sync_count > 0:
-            log_action("streamlit", "auto_sync", "success", f"{sync_count} registos sincronizados")
+            log_action(
+                "streamlit",
+                "auto_sync",
+                "success",
+                f"{sync_count} registos sincronizados | tickets gerados: {ticket_count}"
+            )
 
 
 # =========================================================
@@ -570,6 +618,79 @@ if menu == "Dashboard":
     c1.metric("Total Vendido", f"€ {total_vendas:,.2f}")
     c2.metric("Nº de Vendas", num_vendas)
     c3.metric("Ticket Médio", f"€ {ticket_medio:,.2f}")
+
+    st.divider()
+
+    # Sincronização Manual
+    col_sync1, col_sync2 = st.columns(2)
+    with col_sync1:
+        if st.button("🔄 Sincronizar Agora"):
+            with st.spinner("A sincronizar dados com Airtable..."):
+                sync_count = 0
+                ticket_count = 0
+                for ch in charges[:50]:
+                    try:
+                        # SEMPRE sincronizar charge
+                        sync_charge_to_airtable(ch, auto_generate_ticket=False)
+                        sync_count += 1
+                        
+                        # Verificar se tem ticket E se tem pdf_url
+                        if ch.get("status") == "succeeded":
+                            existing_ticket = get_ticket_by_charge_id(ch.get("id"))
+                            needs_pdf = False
+                            
+                            if not existing_ticket.get("success"):
+                                needs_pdf = True
+                            else:
+                                # Verificar se tem pdf_url
+                                from airtable_client import _headers, _table_url, get_airtable_config
+                                import requests
+                                api_key, base_id = get_airtable_config()
+                                ticket_id = existing_ticket.get("ticket_id")
+                                
+                                url = _table_url(base_id, "Tickets")
+                                params = {"filterByFormula": f"{{ticket_id}}='{ticket_id}'"}
+                                resp = requests.get(url, headers=_headers(api_key), params=params)
+                                records = resp.json().get("records", [])
+                                
+                                if records and not records[0].get("fields", {}).get("pdf_url"):
+                                    needs_pdf = True
+                            
+                            if needs_pdf:
+                                from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                                if _generate_and_store_ticket_from_charge(ch):
+                                    ticket_count += 1
+                    except Exception as e:
+                        print(f"[SYNC ERROR] {ch.get('id')}: {str(e)}")
+                
+                st.success(f"✅ Sincronizados: {sync_count} | Bilhetes gerados: {ticket_count}")
+    
+    with col_sync2:
+        if st.button("📄 Sincronizar + Gerar PDFs"):
+            with st.spinner("A sincronizar e gerar bilhetes..."):
+                sync_count = 0
+                ticket_count = 0
+                errors = 0
+                progress_bar = st.progress(0)
+                
+                for idx, ch in enumerate(charges[:50]):
+                    try:
+                        # SEMPRE sincronizar charge
+                        sync_charge_to_airtable(ch, auto_generate_ticket=False)
+                        sync_count += 1
+                        
+                        # SEMPRE gerar ticket com PDF (mesmo se já existir, atualiza)
+                        from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                        if _generate_and_store_ticket_from_charge(ch):
+                            ticket_count += 1
+                        
+                        progress_bar.progress((idx + 1) / min(50, len(charges)))
+                    except Exception as e:
+                        errors += 1
+                        print(f"[BATCH ERROR] {ch.get('id')}: {str(e)}")
+                
+                progress_bar.progress(1.0)
+                st.success(f"✅ Sincronizados: {sync_count} | Bilhetes: {ticket_count} | Erros: {errors}")
 
     st.divider()
 
@@ -998,23 +1119,65 @@ elif menu == "Bilhetes":
 # =========================================================
 elif menu == "Picking":
     st.title("📱 Picking - Validação de Bilhetes")
-    st.caption("Valide bilhetes lendo QR codes na entrada do evento.")
+    st.caption("Valide bilhetes lendo QR codes com a câmera do telefone. Não há opção manual.")
 
-    col_p1, col_p2 = st.columns([3, 1])
-    
-    with col_p1:
-        qrcode_input = st.text_input(
-            "QR Code (lê por scanner ou manual)",
-            placeholder="TICKET:xxxxx:email@example.com",
-            key="qrcode_scanner"
-        )
+    if "qr_last" not in st.session_state:
+        st.session_state["qr_last"] = ""
+    if "qr_last_ts" not in st.session_state:
+        st.session_state["qr_last_ts"] = None
+    if "qr_processed" not in st.session_state:
+        st.session_state["qr_processed"] = ""
+    if "validation_history" not in st.session_state:
+        st.session_state["validation_history"] = []
+    if "last_validation" not in st.session_state:
+        st.session_state["last_validation"] = None
 
-    with col_p2:
-        validator_name = st.text_input("Seu nome", placeholder="Porteiro/Segurança", key="validator")
+    class QRScanner(VideoTransformerBase):
+        def __init__(self):
+            self.detector = cv2.QRCodeDetector()
 
-    if qrcode_input:
+        def transform(self, frame):
+            img = frame.to_ndarray(format="bgr24")
+            data, _, _ = self.detector.detectAndDecode(img)
+            if data:
+                try:
+                    if data != st.session_state.get("qr_last"):
+                        st.session_state["qr_last"] = data
+                        st.session_state["qr_last_ts"] = datetime.now(tz=timezone.utc).isoformat()
+                except Exception:
+                    pass
+            return frame
+
+    validator_name = st.text_input("Seu nome", placeholder="Porteiro/Segurança", key="validator")
+
+    webrtc_streamer(
+        key="qr-scanner",
+        video_transformer_factory=QRScanner,
+        media_stream_constraints={"video": {"facingMode": "environment"}, "audio": False},
+        async_processing=True,
+    )
+
+    qrcode_input = st.session_state.get("qr_last")
+    if qrcode_input and qrcode_input != st.session_state.get("qr_processed"):
         result = validate_qrcode(qrcode_input, validated_by=validator_name or "system")
-        if result["success"]:
+        st.session_state["qr_processed"] = qrcode_input
+        st.session_state["last_validation"] = result
+
+        status_label = "válido" if result.get("success") else "inválido"
+        if result.get("already_validated"):
+            status_label = "duplicado"
+
+        st.session_state["validation_history"].insert(0, {
+            "hora": datetime.now(tz=timezone.utc).strftime("%H:%M:%S"),
+            "ticket_id": result.get("ticket_id") or "N/A",
+            "status": status_label,
+            "validador": validator_name or "system",
+            "detalhe": result.get("error") or "ok",
+        })
+
+    result = st.session_state.get("last_validation")
+    if result:
+        if result.get("success"):
             st.success("✅ Bilhete válido!")
             col_t1, col_t2, col_t3 = st.columns(3)
             with col_t1:
@@ -1028,21 +1191,17 @@ elif menu == "Picking":
                 mark_ticket_as_validated(result["ticket_id"], validator_name or "system")
                 st.success("Entrada registada!")
                 st.balloons()
+        elif result.get("already_validated"):
+            st.warning("⚠️ Bilhete já validado (duplicado)")
         else:
-            st.error(f"❌ Erro: {result['error']}")
+            st.error(f"❌ Erro: {result.get('error', 'Erro desconhecido')}")
 
     st.divider()
-    st.subheader("Validação Manual")
-    manual_ticket_id = st.text_input("Inserir Ticket ID manualmente", placeholder="xxxxx-xxxxx-xxxxx")
-    if manual_ticket_id and st.button("Validar Manualmente"):
-        ticket_data = get_ticket_data(manual_ticket_id)
-        if ticket_data and "error" not in ticket_data:
-            st.info(f"Status: {ticket_data.get('status')}")
-            if st.button("Confirmar"):
-                mark_ticket_as_validated(manual_ticket_id, validator_name or "system")
-                st.success("Bilhete validado!")
-        else:
-            st.error("Bilhete não encontrado.")
+    st.subheader("Histórico de validações (tempo real)")
+    if st.session_state["validation_history"]:
+        st.dataframe(st.session_state["validation_history"][:50], use_container_width=True)
+    else:
+        st.info("Nenhuma validação registada ainda.")
 
 # =========================================================
 # UI — LOGS
@@ -1087,18 +1246,61 @@ elif menu == "Airtable":
     st.subheader("Sincronizar Charges")
     if st.button("Enviar Charges para Airtable"):
         synced = 0
+        tickets_generated = 0
         errors = 0
         for ch in charges[:max_sync]:
             try:
+                # Sincronizar dados do charge
                 fields = build_charge_fields(ch)
                 upsert_record("Charges", fields, merge_on="charge_id")
                 customer_fields = build_customer_fields_from_charge(ch)
                 if customer_fields.get("customer_id") or customer_fields.get("email"):
                     upsert_record("Customers", customer_fields, merge_on="customer_id")
                 synced += 1
-            except Exception:
+                
+                # Gerar bilhete automaticamente se não existir
+                if ch.get("status") == "succeeded":
+                    existing_ticket = get_ticket_by_charge_id(ch.get("id"))
+                    if not existing_ticket.get("success"):
+                        from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                        if _generate_and_store_ticket_from_charge(ch):
+                            tickets_generated += 1
+            except Exception as e:
                 errors += 1
-        st.success(f"Charges sincronizadas: {synced}. Erros: {errors}.")
+        
+        st.success(f"✅ Charges sincronizadas: {synced} | Bilhetes gerados: {tickets_generated} | Erros: {errors}")
+
+    st.subheader("Sincronizar Charges COM Geração de Bilhetes")
+    if st.button("Enviar Charges + Gerar Bilhetes PDF"):
+        synced = 0
+        tickets_generated = 0
+        errors = 0
+        progress_bar = st.progress(0)
+        status_placeholder = st.empty()
+        
+        for idx, ch in enumerate(charges[:max_sync]):
+            try:
+                # Sync charge data
+                fields = build_charge_fields(ch)
+                upsert_record("Charges", fields, merge_on="charge_id")
+                customer_fields = build_customer_fields_from_charge(ch)
+                if customer_fields.get("customer_id") or customer_fields.get("email"):
+                    upsert_record("Customers", customer_fields, merge_on="customer_id")
+                synced += 1
+                
+                # Generate and upload ticket with PDF
+                from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                if _generate_and_store_ticket_from_charge(ch):
+                    tickets_generated += 1
+                
+                progress_bar.progress((idx + 1) / min(max_sync, len(charges)))
+                status_placeholder.info(f"Processados: {idx + 1} | Sincronizados: {synced} | Bilhetes: {tickets_generated}")
+            except Exception as e:
+                errors += 1
+                status_placeholder.warning(f"Erro em {ch.get('id')}: {str(e)}")
+        
+        progress_bar.progress(1.0)
+        st.success(f"✅ Charges sincronizadas: {synced} | Bilhetes gerados: {tickets_generated} | Erros: {errors}")
 
     st.subheader("Sincronizar Payment Intents")
     if st.button("Enviar Payment Intents para Airtable"):

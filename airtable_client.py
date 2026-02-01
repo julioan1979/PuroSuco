@@ -131,3 +131,76 @@ def create_field(table_id, field_payload):
     resp = requests.post(url, headers=_headers(api_key), json=field_payload, timeout=30)
     resp.raise_for_status()
     return resp.json()
+
+
+def upload_attachment_to_record(table: str, record_id: str, pdf_bytes: bytes, filename: str = "ticket.pdf"):
+    """
+    Upload PDF to Cloudinary and store URL in Airtable record.
+    
+    Args:
+        table: Table name (e.g., "Tickets")
+        record_id: Record ID in Airtable
+        pdf_bytes: PDF file as bytes
+        filename: Name for the attachment (for reference)
+        
+    Returns:
+        dict with status and PDF URL
+    """
+    import cloudinary
+    import cloudinary.uploader
+    import os
+    import tempfile
+    
+    api_key, base_id = get_airtable_config()
+    
+    # Configure Cloudinary
+    cloudinary.config(
+        cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+        api_key=os.getenv("CLOUDINARY_API_KEY"),
+        api_secret=os.getenv("CLOUDINARY_API_SECRET")
+    )
+    
+    # Upload PDF to Cloudinary using temp file (avoids encoding issues with BytesIO)
+    print(f"[INFO] Uploading PDF to Cloudinary ({len(pdf_bytes)} bytes)...")
+    
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp_file:
+        tmp_file.write(pdf_bytes)
+        tmp_path = tmp_file.name
+    
+    try:
+        result = cloudinary.uploader.upload(
+            tmp_path,
+            resource_type="raw",
+            public_id=f"purosuco/tickets/{filename.replace('.pdf', '')}",
+            overwrite=True,
+            timeout=60
+        )
+        pdf_url = result["secure_url"]
+        print(f"[SUCCESS] PDF uploaded to Cloudinary: {pdf_url}")
+    finally:
+        os.unlink(tmp_path)
+    
+    # Store URL in Airtable
+    update_url = f"https://api.airtable.com/v0/{base_id}/{table}/{record_id}"
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    data = {
+        "fields": {
+            "pdf_url": pdf_url,  # Airtable URL type accepts plain string
+            "pdf_size_bytes": len(pdf_bytes)
+        }
+    }
+    
+    resp = requests.patch(update_url, headers=headers, json=data, timeout=30)
+    if resp.status_code != 200:
+        print(f"[DEBUG] Response status: {resp.status_code}")
+        print(f"[DEBUG] Response body: {resp.text}")
+    resp.raise_for_status()
+    
+    print(f"[SUCCESS] PDF URL saved to Airtable record {record_id}")
+    
+    return {"status": "success", "url": pdf_url, "size": len(pdf_bytes)}
