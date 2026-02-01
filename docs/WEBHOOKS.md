@@ -47,7 +47,7 @@ Servidor iniciará em: `http://localhost:8080/stripe/webhook`
 
 3. **Encaminhar webhooks para localhost**:
    ```bash
-   stripe listen --forward-to localhost:5000/webhook
+   stripe listen --forward-to localhost:8080/stripe/webhook
    ```
 
 4. **Copie o signing secret** que aparece e adicione ao `.env`:
@@ -65,9 +65,9 @@ Servidor iniciará em: `http://localhost:8080/stripe/webhook`
 
 1. Acesse: https://dashboard.stripe.com/webhooks
 2. Clique em **"Add endpoint"**
-3. **Endpoint URL**: `https://seu-dominio.com/stripe/webhook`
+3. **Endpoint URL**: `https://seu-dominio.com/stripe/webhook` (ou o URL do Railway, ex.: `https://seu-app.up.railway.app/stripe/webhook`)
 4. **Eventos a ouvir**:
-   - ✅ `charge.succeeded` - Pagamento bem-sucedido (gera ticket)
+   - ✅ `charge.succeeded` - Pagamento bem-sucedido
    - ✅ `charge.failed` - Pagamento falhou
    - ✅ `charge.updated` - Pagamento atualizado
    - ✅ `checkout.session.completed` - Checkout finalizado
@@ -124,7 +124,7 @@ autostart=true
 autorestart=true
 stderr_logfile=/var/log/purosuco/webhook-err.log
 stdout_logfile=/var/log/purosuco/webhook-out.log
-environment=PORT="5000"
+environment=PORT="8080"
 ```
 
 ```bash
@@ -163,6 +163,8 @@ Identifica tipo de evento
        ↓
 Sincroniza para Airtable
        ↓
+Processo Python gera tickets/PDFs (ex.: stripe_airtable_sync.py)
+       ↓
 Tabelas atualizadas automaticamente!
 ```
 
@@ -170,7 +172,7 @@ Tabelas atualizadas automaticamente!
 
 | Tabela | Evento Stripe | Quando Atualiza |
 |--------|---------------|-----------------|
-| **Charges** | `charge.succeeded` | Pagamento aprovado (+ gera ticket) |
+| **Charges** | `charge.succeeded` | Pagamento aprovado |
 | **Charges** | `charge.failed` | Pagamento falhou |
 | **Charges** | `charge.updated` | Status do charge mudou |
 | **Checkout_Sessions** | `checkout.session.completed` | Checkout finalizado |
@@ -178,9 +180,9 @@ Tabelas atualizadas automaticamente!
 | **Customers** | `customer.updated` | Dados do cliente alterados |
 | **Payouts** | `payout.paid` | Transferência paga |
 | **Payouts** | `payout.updated` | Status da transferência mudou |
-| **Tickets** | `charge.succeeded` | Gerado automaticamente |
-| **QRCodes** | `charge.succeeded` | Gerado automaticamente |
 | **Logs** | Todos os eventos | Sempre registra |
+
+> **Observação:** A geração de Tickets/QRCodes/PDFs é feita por processos Python (ex.: `stripe_airtable_sync.py`), não diretamente pelo webhook Node.
 
 ## Monitoramento
 
@@ -234,7 +236,6 @@ npm start  # Executa 24/7
 ```
 - ✅ Tempo real (< 1 segundo)
 - ✅ Sem intervenção manual
-- ✅ Gera tickets automaticamente
 - ⚠️ Requer servidor rodando
 
 ## Problemas Comuns
