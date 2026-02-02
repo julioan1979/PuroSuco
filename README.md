@@ -133,9 +133,10 @@ purosuco/
 ## 🌐 Webhook Oficial (Produção)
 
 - **Endpoint em produção**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
+- **Servidor**: Node/Express (modelo equivalente ao `server.js` deste repo)
 - **Repositório responsável**: https://github.com/julioan1979/stripe-webhook-airtable
 
-O serviço oficial recebe os eventos da Stripe e faz `performUpsert` por `event_id`/`charge_id`, garantindo deduplicação. Depois, os scripts Python complementam campos que faltam (PDF, recibo, QR) sem criar duplicados.
+O serviço oficial recebe eventos da Stripe e faz `performUpsert` por `event_id`/`charge_id`, garantindo deduplicação. Depois, os scripts Python complementam campos que faltam (PDF, recibo, QR) sem criar duplicados.
 
 ---
 
