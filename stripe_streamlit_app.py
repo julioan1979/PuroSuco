@@ -21,8 +21,7 @@ from stripe_airtable_payloads import (
     build_checkout_session_fields
 )
 from create_airtable_schema import ensure_schema
-from app_logger import log_action
-from stripe_airtable_sync import sync_charge_to_airtable, sync_customer_to_airtable, sync_checkout_session_to_airtable
+from stripe_airtable_sync import sync_charge_to_airtable
 from qrcode_manager import validate_qrcode, mark_ticket_as_validated, get_ticket_data, get_ticket_by_charge_id
 
 # ---------------------------------------------------------
@@ -486,7 +485,7 @@ def build_payouts_dataframe(payouts):
 st.sidebar.title("Stripe Dashboard")
 menu = st.sidebar.radio(
     "Navegação",
-    ["Dashboard", "Vendas", "Clientes", "Recebimentos", "Detalhes", "Airtable", "Bilhetes", "Picking", "Logs"]
+    ["Dashboard", "Vendas", "Clientes", "Recebimentos", "Detalhes", "Bilhetes", "Picking"]
 )
 
 st.sidebar.subheader("Filtros")
@@ -534,79 +533,6 @@ with st.spinner("A carregar dados da Stripe..."):
     df_payouts = build_payouts_dataframe(payouts_raw)
 
     total_vendas, num_vendas, ticket_medio = sales_metrics(df_sales)
-
-    # =========================================================
-    # AUTO-SYNC para Airtable (ao carregar dados)
-    # IMPORTANTE: Gera bilhetes automaticamente para charges sem ticket ou sem PDF
-    # =========================================================
-    with st.spinner("A sincronizar dados com Airtable..."):
-        sync_count = 0
-        ticket_count = 0
-        for ch in charges[:50]:  # Sincronizar últimos 50 charges
-            try:
-                # SEMPRE sincronizar charge
-                sync_charge_to_airtable(ch, auto_generate_ticket=False)
-                sync_count += 1
-                
-                # SEMPRE verificar se tem ticket E se tem pdf_url
-                if ch.get("status") == "succeeded":
-                    existing_ticket = get_ticket_by_charge_id(ch.get("id"))
-                    needs_pdf = False
-                    
-                    if not existing_ticket.get("success"):
-                        # Não tem ticket, gerar
-                        needs_pdf = True
-                    else:
-                        # Tem ticket, verificar se tem pdf_url
-                        from airtable_client import _headers, _table_url, get_airtable_config
-                        import requests
-                        api_key, base_id = get_airtable_config()
-                        ticket_id = existing_ticket.get("ticket_id")
-                        
-                        # Buscar ticket no Airtable para verificar pdf_url
-                        url = _table_url(base_id, "Tickets")
-                        params = {"filterByFormula": f"{{ticket_id}}='{ticket_id}'"}
-                        resp = requests.get(url, headers=_headers(api_key), params=params)
-                        records = resp.json().get("records", [])
-                        
-                        if records and not records[0].get("fields", {}).get("pdf_url"):
-                            needs_pdf = True
-                    
-                    if needs_pdf:
-                        # Gerar/atualizar ticket com PDF no Cloudinary
-                        from stripe_airtable_sync import _generate_and_store_ticket_from_charge
-                        try:
-                            if _generate_and_store_ticket_from_charge(ch):
-                                ticket_count += 1
-                                print(f"[AUTO-SYNC] PDF gerado para {ch.get('id')[:20]}")
-                        except Exception as pdf_err:
-                            print(f"[AUTO-SYNC PDF ERROR] {ch.get('id')}: {str(pdf_err)}")
-                            import traceback
-                            traceback.print_exc()
-            except Exception as e:
-                print(f"[AUTO-SYNC ERROR] {ch.get('id')}: {str(e)}")
-                import traceback
-                traceback.print_exc()
-        
-        for cust in customers_raw[:20]:  # Sincronizar últimos 20 clientes
-            try:
-                sync_customer_to_airtable(
-                    customer_id=cust.get('id'),
-                    name=cust.get('name'),
-                    email=cust.get('email'),
-                    phone=cust.get('phone')
-                )
-            except Exception:
-                pass
-        
-        if sync_count > 0:
-            log_action(
-                "streamlit",
-                "auto_sync",
-                "success",
-                f"{sync_count} registos sincronizados | tickets gerados: {ticket_count}"
-            )
-
 
 # =========================================================
 # UI — DASHBOARD
@@ -702,6 +628,139 @@ if menu == "Dashboard":
         title="Evolução das Vendas"
     )
     st.plotly_chart(fig, use_container_width=True)
+
+    st.divider()
+    with st.expander("🗃️ Airtable (sincronização manual)"):
+        st.caption("Sincronize dados do Stripe para o Airtable e aplique o schema manualmente.")
+
+        col_a, col_b = st.columns(2)
+        with col_a:
+            if st.button("Aplicar schema no Airtable"):
+                try:
+                    ensure_schema()
+                    st.success("Schema aplicado com sucesso.")
+                except Exception as exc:
+                    st.error("Falha ao aplicar schema via API. Use o arquivo airtable_schema.json manualmente.")
+                    st.write(str(exc))
+
+        with col_b:
+            max_sync = st.number_input(
+                "Máx. registros para sincronizar",
+                min_value=10,
+                max_value=2000,
+                value=200,
+                step=10,
+                key="max_sync_airtable"
+            )
+
+        st.subheader("Sincronizar Charges")
+        if st.button("Enviar Charges para Airtable"):
+            synced = 0
+            tickets_generated = 0
+            errors = 0
+            for ch in charges[:max_sync]:
+                try:
+                    fields = build_charge_fields(ch)
+                    upsert_record("Charges", fields, merge_on="charge_id")
+                    customer_fields = build_customer_fields_from_charge(ch)
+                    if customer_fields.get("customer_id") or customer_fields.get("email"):
+                        upsert_record("Customers", customer_fields, merge_on="customer_id")
+                    synced += 1
+
+                    if ch.get("status") == "succeeded":
+                        existing_ticket = get_ticket_by_charge_id(ch.get("id"))
+                        if not existing_ticket.get("success"):
+                            from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                            if _generate_and_store_ticket_from_charge(ch):
+                                tickets_generated += 1
+                except Exception:
+                    errors += 1
+
+            st.success(f"✅ Charges sincronizadas: {synced} | Bilhetes gerados: {tickets_generated} | Erros: {errors}")
+
+        st.subheader("Sincronizar Charges COM Geração de Bilhetes")
+        if st.button("Enviar Charges + Gerar Bilhetes PDF"):
+            synced = 0
+            tickets_generated = 0
+            errors = 0
+            progress_bar = st.progress(0)
+            status_placeholder = st.empty()
+
+            for idx, ch in enumerate(charges[:max_sync]):
+                try:
+                    fields = build_charge_fields(ch)
+                    upsert_record("Charges", fields, merge_on="charge_id")
+                    customer_fields = build_customer_fields_from_charge(ch)
+                    if customer_fields.get("customer_id") or customer_fields.get("email"):
+                        upsert_record("Customers", customer_fields, merge_on="customer_id")
+                    synced += 1
+
+                    from stripe_airtable_sync import _generate_and_store_ticket_from_charge
+                    if _generate_and_store_ticket_from_charge(ch):
+                        tickets_generated += 1
+
+                    progress_bar.progress((idx + 1) / min(max_sync, len(charges)))
+                    status_placeholder.info(f"Processados: {idx + 1} | Sincronizados: {synced} | Bilhetes: {tickets_generated}")
+                except Exception as e:
+                    errors += 1
+                    status_placeholder.warning(f"Erro em {ch.get('id')}: {str(e)}")
+
+            progress_bar.progress(1.0)
+            st.success(f"✅ Charges sincronizadas: {synced} | Bilhetes gerados: {tickets_generated} | Erros: {errors}")
+
+        st.subheader("Sincronizar Payment Intents")
+        if st.button("Enviar Payment Intents para Airtable"):
+            synced = 0
+            errors = 0
+            for inv in invoices[:max_sync]:
+                pi = inv.get("payment_intent")
+                if not pi:
+                    continue
+                try:
+                    pi_obj = stripe.PaymentIntent.retrieve(pi, expand=["charges.data"])
+                    charge_id = None
+                    receipt_url = None
+                    charges_data = pi_obj.get("charges", {}).get("data", []) if isinstance(pi_obj, dict) else pi_obj.charges.data
+                    if charges_data:
+                        charge_id = charges_data[0].get("id")
+                        receipt_url = charges_data[0].get("receipt_url")
+                    fields = build_payment_intent_fields(pi_obj, charge_id=charge_id, receipt_url=receipt_url)
+                    upsert_record("Payment_Intents", fields, merge_on="payment_intent_id")
+                    synced += 1
+                except Exception:
+                    errors += 1
+            st.success(f"Payment Intents sincronizados: {synced}. Erros: {errors}.")
+
+        st.subheader("Sincronizar Checkout Sessions")
+        if st.button("Enviar Checkout Sessions para Airtable"):
+            synced = 0
+            errors = 0
+            for inv in invoices[:max_sync]:
+                try:
+                    if inv.get("payment_intent"):
+                        sessions = stripe.checkout.Session.list(payment_intent=inv.get("payment_intent"), limit=1)
+                        if not sessions.data:
+                            continue
+                        session = sessions.data[0]
+                    else:
+                        continue
+
+                    receipt_url = None
+                    if session.get("payment_intent"):
+                        pi_obj = stripe.PaymentIntent.retrieve(session.get("payment_intent"), expand=["charges.data"])
+                        charges_data = pi_obj.get("charges", {}).get("data", []) if isinstance(pi_obj, dict) else pi_obj.charges.data
+                        if charges_data:
+                            receipt_url = charges_data[0].get("receipt_url")
+
+                    fields = build_checkout_session_fields(session, receipt_url=receipt_url)
+                    upsert_record("Checkout_Sessions", fields, merge_on="session_id")
+                    customer_fields = build_customer_fields_from_session(session)
+                    if customer_fields.get("customer_id") or customer_fields.get("email"):
+                        upsert_record("Customers", customer_fields, merge_on="customer_id")
+                    synced += 1
+                except Exception:
+                    errors += 1
+            st.success(f"Checkout Sessions sincronizadas: {synced}. Erros: {errors}.")
 
 
 # =========================================================
@@ -1202,156 +1261,3 @@ elif menu == "Picking":
         st.dataframe(st.session_state["validation_history"][:50], use_container_width=True)
     else:
         st.info("Nenhuma validação registada ainda.")
-
-# =========================================================
-# UI — LOGS
-# =========================================================
-elif menu == "Logs":
-    st.title("📋 Histórico de Logs")
-    st.caption("Veja o histórico de operações, sincronizações e validações.")
-
-    col_l1, col_l2, col_l3 = st.columns(3)
-    with col_l1:
-        filter_module = st.selectbox("Módulo", ["Todos", "sync", "pdf", "picking", "airtable"])
-    with col_l2:
-        filter_level = st.selectbox("Nível", ["Todos", "INFO", "WARNING", "ERROR", "DEBUG"])
-    with col_l3:
-        filter_status = st.selectbox("Status", ["Todos", "success", "error", "pending"])
-
-    st.info("📌 Logs são armazenados em Airtable. A visualização completa requer API de busca.")
-    st.write("✅ Módulos em operação: sync, pdf, picking, airtable, webhook")
-    st.write("✅ Ações: sincronização de charges, geração de PDFs, validação de tickets")
-    st.write("✅ Escalações: Erros de API são registados automaticamente")
-
-# =========================================================
-# UI — AIRTABLE
-# =========================================================
-elif menu == "Airtable":
-    st.title("🗃️ Airtable Sync")
-    st.caption("Sincronize dados do Stripe para o Airtable e aplique o schema automaticamente.")
-
-    col_a, col_b = st.columns(2)
-    with col_a:
-        if st.button("Aplicar schema no Airtable"):
-            try:
-                ensure_schema()
-                st.success("Schema aplicado com sucesso.")
-            except Exception as exc:
-                st.error("Falha ao aplicar schema via API. Use o arquivo airtable_schema.json manualmente.")
-                st.write(str(exc))
-
-    with col_b:
-        max_sync = st.number_input("Máx. registros para sincronizar", min_value=10, max_value=2000, value=200, step=10)
-
-    st.subheader("Sincronizar Charges")
-    if st.button("Enviar Charges para Airtable"):
-        synced = 0
-        tickets_generated = 0
-        errors = 0
-        for ch in charges[:max_sync]:
-            try:
-                # Sincronizar dados do charge
-                fields = build_charge_fields(ch)
-                upsert_record("Charges", fields, merge_on="charge_id")
-                customer_fields = build_customer_fields_from_charge(ch)
-                if customer_fields.get("customer_id") or customer_fields.get("email"):
-                    upsert_record("Customers", customer_fields, merge_on="customer_id")
-                synced += 1
-                
-                # Gerar bilhete automaticamente se não existir
-                if ch.get("status") == "succeeded":
-                    existing_ticket = get_ticket_by_charge_id(ch.get("id"))
-                    if not existing_ticket.get("success"):
-                        from stripe_airtable_sync import _generate_and_store_ticket_from_charge
-                        if _generate_and_store_ticket_from_charge(ch):
-                            tickets_generated += 1
-            except Exception as e:
-                errors += 1
-        
-        st.success(f"✅ Charges sincronizadas: {synced} | Bilhetes gerados: {tickets_generated} | Erros: {errors}")
-
-    st.subheader("Sincronizar Charges COM Geração de Bilhetes")
-    if st.button("Enviar Charges + Gerar Bilhetes PDF"):
-        synced = 0
-        tickets_generated = 0
-        errors = 0
-        progress_bar = st.progress(0)
-        status_placeholder = st.empty()
-        
-        for idx, ch in enumerate(charges[:max_sync]):
-            try:
-                # Sync charge data
-                fields = build_charge_fields(ch)
-                upsert_record("Charges", fields, merge_on="charge_id")
-                customer_fields = build_customer_fields_from_charge(ch)
-                if customer_fields.get("customer_id") or customer_fields.get("email"):
-                    upsert_record("Customers", customer_fields, merge_on="customer_id")
-                synced += 1
-                
-                # Generate and upload ticket with PDF
-                from stripe_airtable_sync import _generate_and_store_ticket_from_charge
-                if _generate_and_store_ticket_from_charge(ch):
-                    tickets_generated += 1
-                
-                progress_bar.progress((idx + 1) / min(max_sync, len(charges)))
-                status_placeholder.info(f"Processados: {idx + 1} | Sincronizados: {synced} | Bilhetes: {tickets_generated}")
-            except Exception as e:
-                errors += 1
-                status_placeholder.warning(f"Erro em {ch.get('id')}: {str(e)}")
-        
-        progress_bar.progress(1.0)
-        st.success(f"✅ Charges sincronizadas: {synced} | Bilhetes gerados: {tickets_generated} | Erros: {errors}")
-
-    st.subheader("Sincronizar Payment Intents")
-    if st.button("Enviar Payment Intents para Airtable"):
-        synced = 0
-        errors = 0
-        for inv in invoices[:max_sync]:
-            pi = inv.get("payment_intent")
-            if not pi:
-                continue
-            try:
-                pi_obj = stripe.PaymentIntent.retrieve(pi, expand=["charges.data"])
-                charge_id = None
-                receipt_url = None
-                charges_data = pi_obj.get("charges", {}).get("data", []) if isinstance(pi_obj, dict) else pi_obj.charges.data
-                if charges_data:
-                    charge_id = charges_data[0].get("id")
-                    receipt_url = charges_data[0].get("receipt_url")
-                fields = build_payment_intent_fields(pi_obj, charge_id=charge_id, receipt_url=receipt_url)
-                upsert_record("Payment_Intents", fields, merge_on="payment_intent_id")
-                synced += 1
-            except Exception:
-                errors += 1
-        st.success(f"Payment Intents sincronizados: {synced}. Erros: {errors}.")
-
-    st.subheader("Sincronizar Checkout Sessions")
-    if st.button("Enviar Checkout Sessions para Airtable"):
-        synced = 0
-        errors = 0
-        for inv in invoices[:max_sync]:
-            try:
-                if inv.get("payment_intent"):
-                    sessions = stripe.checkout.Session.list(payment_intent=inv.get("payment_intent"), limit=1)
-                    if not sessions.data:
-                        continue
-                    session = sessions.data[0]
-                else:
-                    continue
-
-                receipt_url = None
-                if session.get("payment_intent"):
-                    pi_obj = stripe.PaymentIntent.retrieve(session.get("payment_intent"), expand=["charges.data"])
-                    charges_data = pi_obj.get("charges", {}).get("data", []) if isinstance(pi_obj, dict) else pi_obj.charges.data
-                    if charges_data:
-                        receipt_url = charges_data[0].get("receipt_url")
-
-                fields = build_checkout_session_fields(session, receipt_url=receipt_url)
-                upsert_record("Checkout_Sessions", fields, merge_on="session_id")
-                customer_fields = build_customer_fields_from_session(session)
-                if customer_fields.get("customer_id") or customer_fields.get("email"):
-                    upsert_record("Customers", customer_fields, merge_on="customer_id")
-                synced += 1
-            except Exception:
-                errors += 1
-        st.success(f"Checkout Sessions sincronizadas: {synced}. Erros: {errors}.")

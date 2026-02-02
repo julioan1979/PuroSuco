@@ -213,10 +213,16 @@ heroku logs --tail
 
 ## ⚙️ Configuração de Webhooks
 
-### Stripe Webhooks
+### Stripe Webhooks (Node no Railway)
+
+O webhook em produção roda no serviço Node/Express (arquivo `server.js`) publicado no Railway:
+
+```
+https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook
+```
 
 1. **Dashboard do Stripe** → Developers → Webhooks
-2. **Add endpoint**: `https://seu-dominio.com/webhook`
+2. **Add endpoint**: `https://stripe-webhook-airtable-production.up.railway.app/stripe/webhook`
 3. **Eventos**: Selecione:
    - `charge.succeeded`
    - `charge.failed`
