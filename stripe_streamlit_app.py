@@ -532,7 +532,8 @@ with st.spinner("A carregar dados da Stripe..."):
     df_clientes = build_customers_dataframe(customers_raw, df_sales)
     df_payouts = build_payouts_dataframe(payouts_raw)
 
-    total_vendas, num_vendas, ticket_medio = sales_metrics(df_sales)
+    df_sales_paid = df_sales[df_sales["status"] == "succeeded"]
+    total_vendas, num_vendas, ticket_medio = sales_metrics(df_sales_paid)
 
 # =========================================================
 # UI — DASHBOARD
@@ -621,7 +622,7 @@ if menu == "Dashboard":
     st.divider()
 
     fig = px.line(
-        df_sales.sort_values("data"),
+        df_sales_paid.sort_values("data"),
         x="data",
         y="valor",
         color="tipo",
