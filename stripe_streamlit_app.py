@@ -770,29 +770,7 @@ if menu == "Dashboard":
 elif menu == "Vendas":
     st.title("💳 Vendas")
 
-    if "filtro_status" not in st.session_state:
-        st.session_state["filtro_status"] = sorted(df_sales["status"].unique())
 
-    filtros_col = st.columns([3, 3, 1, 2])
-    with filtros_col[0]:
-        status = st.multiselect(
-            "Status",
-            sorted(df_sales["status"].unique()),
-            key="filtro_status"
-        )
-    with filtros_col[1]:
-        if st.button("Limpar filtros"):
-            st.session_state["filtro_status"] = sorted(df_sales["status"].unique())
-            st.experimental_rerun()
-    with filtros_col[2]:
-        mostrar_charge = st.checkbox(
-            "Mostrar dados do Charge",
-            value=False
-        )
-
-    df = df_sales[
-        df_sales["status"].isin(st.session_state["filtro_status"])
-    ].sort_values("data")
 
     col_kpi1, col_kpi2, col_kpi3 = st.columns(3)
     col_kpi1.metric("Valor filtrado", f"€ {df['valor'].sum():,.2f}")
