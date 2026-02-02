@@ -770,12 +770,7 @@ if menu == "Dashboard":
 elif menu == "Vendas":
     st.title("💳 Vendas")
 
-    mostrar_charge = st.checkbox(
-        "Mostrar dados do Charge",
-        value=False
-    )
 
-    df = df_sales[df_sales["status"] == "succeeded"].sort_values("data")
 
     col_kpi1, col_kpi2, col_kpi3 = st.columns(3)
     col_kpi1.metric("Valor filtrado", f"€ {df['valor'].sum():,.2f}")
