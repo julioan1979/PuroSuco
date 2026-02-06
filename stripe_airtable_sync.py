@@ -1,10 +1,13 @@
 import uuid
 from datetime import datetime, timezone
+from typing import List, Optional
+
 from airtable_client import upsert_record
 from app_logger import log_sync, log_pdf_generation
 from pdf_generator import generate_ticket_pdf, generate_qrcode_data
 from stripe_receipt_scraper import scrape_and_store_receipt
 import stripe
+from qrcode_manager import get_ticket_by_charge_id as _get_ticket_by_charge_id
 
 stripe_key = None
 
@@ -14,6 +17,40 @@ def set_stripe_key(api_key: str):
     global stripe_key
     stripe_key = api_key
     stripe.api_key = api_key
+
+
+def get_all_charges(max_records: Optional[int] = None, created_range: Optional[dict] = None) -> List[dict]:
+    """Retrieve charges from Stripe with optional limits.
+
+    Args:
+        max_records: máximo de registros para retornar (None = todos)
+        created_range: dict com filtros created {"gte": ts, "lte": ts}
+    Returns:
+        list de charge dicts conforme retornado pela Stripe API
+    """
+    params = {
+        "limit": 100,
+        "expand": ["data.customer", "data.invoice", "data.payment_intent"],
+    }
+    if created_range:
+        params["created"] = created_range
+
+    charges = []
+    try:
+        stripe_list = stripe.Charge.list(**params)
+        for charge in stripe_list.auto_paging_iter():
+            charges.append(charge)
+            if max_records and len(charges) >= max_records:
+                break
+    except Exception as exc:
+        log_sync("Charge", "bulk", "error", f"Erro ao listar charges: {exc}")
+        raise
+    return charges
+
+
+def get_ticket_by_charge_id(charge_id: str) -> dict:
+    """Proxy para manter compatibilidade dos testes mais antigos."""
+    return _get_ticket_by_charge_id(charge_id)
 
 
 def _ts_to_iso(ts):

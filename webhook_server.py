@@ -23,6 +23,7 @@ from stripe_airtable_sync import (
     sync_checkout_session_to_airtable,
     sync_payout_to_airtable
 )
+from stripe_paid_cache import upsert_paid_charge, upsert_paid_session
 from app_logger import log_action
 
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
@@ -74,6 +75,7 @@ def stripe_webhook():
         if event_type == 'charge.succeeded':
             charge = data_object
             sync_charge_to_airtable(charge, auto_generate_ticket=True)
+            upsert_paid_charge(charge)
             print(f"✅ Charge {charge['id']} sincronizado com ticket gerado")
 
         elif event_type == 'charge.failed':
@@ -89,6 +91,7 @@ def stripe_webhook():
         elif event_type == 'checkout.session.completed':
             session = data_object
             sync_checkout_session_to_airtable(session)
+            upsert_paid_session(session)
             print(f"✅ Checkout session {session['id']} sincronizado")
 
         elif event_type == 'customer.created' or event_type == 'customer.updated':

@@ -14,6 +14,7 @@ from stripe_airtable_payloads import (
     build_payment_intent_fields,
     build_checkout_session_fields
 )
+from stripe_paid_cache import upsert_paid_charge, upsert_paid_session
 
 load_dotenv()
 
@@ -52,6 +53,7 @@ def handle_charge_succeeded(charge):
     fields = build_charge_fields(charge)
     upsert_record("Charges", fields, merge_on="charge_id")
     upsert_customer_from_charge(charge)
+    upsert_paid_charge(charge)
 
 
 def handle_payment_intent_succeeded(pi):
@@ -84,6 +86,7 @@ def handle_checkout_session_completed(session):
     fields = build_checkout_session_fields(session, receipt_url=receipt_url)
     upsert_record("Checkout_Sessions", fields, merge_on="session_id")
     upsert_customer_from_session(session)
+    upsert_paid_session(session)
 
 
 def handle_event(event):

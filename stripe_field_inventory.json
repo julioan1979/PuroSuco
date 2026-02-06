@@ -1,0 +1,5656 @@
+{
+  "generated_at": "2026-02-04T07:22:36.887112+00:00",
+  "limit_per_object": 50,
+  "objects": {
+    "charges": {
+      "label": "Charge",
+      "sample_count": 5,
+      "fields": {
+        "id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "py_3SvzTFCvIz0R73VS1Dcj9bxQ",
+            "py_3Svo5ECvIz0R73VS0rJoR8ZT",
+            "ch_3SuawPCvIz0R73VS1nVL7Lwq"
+          ],
+          "count": 5
+        },
+        "object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "charge",
+            "charge",
+            "charge"
+          ],
+          "count": 5
+        },
+        "amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1500
+          ],
+          "count": 5
+        },
+        "amount_captured": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1500
+          ],
+          "count": 5
+        },
+        "amount_refunded": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 5
+        },
+        "application": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "application_fee": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "application_fee_amount": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "balance_transaction": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "txn_3Svo5ECvIz0R73VS0UWslpnA",
+            "txn_3SuawPCvIz0R73VS1FIgdKiO"
+          ],
+          "count": 5
+        },
+        "billing_details.address.city": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "Senhora da Hora"
+          ],
+          "count": 5
+        },
+        "billing_details.address.country": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "PT"
+          ],
+          "count": 5
+        },
+        "billing_details.address.line1": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "Rua Nova do Seixo"
+          ],
+          "count": 5
+        },
+        "billing_details.address.line2": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "279 - 2D"
+          ],
+          "count": 5
+        },
+        "billing_details.address.postal_code": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "4460-383"
+          ],
+          "count": 5
+        },
+        "billing_details.address.state": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            ""
+          ],
+          "count": 5
+        },
+        "billing_details.email": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "gtrg@uiic.com",
+            "nadia_18neto@hotmail.com",
+            "julioan@icloud.com"
+          ],
+          "count": 5
+        },
+        "billing_details.name": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "Julio Neves"
+          ],
+          "count": 5
+        },
+        "billing_details.phone": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "+351915436483",
+            null
+          ],
+          "count": 5
+        },
+        "billing_details.tax_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "calculated_statement_descriptor": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "NIVER BIA 2026"
+          ],
+          "count": 5
+        },
+        "captured": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 5
+        },
+        "created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1769951386,
+            1769904025,
+            1769615162
+          ],
+          "count": 5
+        },
+        "currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur",
+            "eur",
+            "eur"
+          ],
+          "count": 5
+        },
+        "customer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "description": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "destination": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "dispute": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "disputed": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 5
+        },
+        "failure_balance_transaction": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "failure_code": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "payment_intent_payment_attempt_expired",
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "failure_message": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "The latest payment attempt of this PaymentIntent has expired. You can provide payment_method_data or a new PaymentMethod to attempt to fulfill this PaymentIntent again.",
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "fraud_details": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 5
+        },
+        "livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 5
+        },
+        "metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 5
+        },
+        "on_behalf_of": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "order": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "outcome.advice_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "outcome.network_advice_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "outcome.network_decline_code": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "",
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "outcome.network_status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "declined_by_network",
+            "approved_by_network",
+            "approved_by_network"
+          ],
+          "count": 5
+        },
+        "outcome.reason": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "generic_decline",
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "outcome.risk_level": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "not_assessed",
+            "not_assessed",
+            "normal"
+          ],
+          "count": 5
+        },
+        "outcome.seller_message": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "The bank did not return any further details with this decline.",
+            "Payment complete.",
+            "Payment complete."
+          ],
+          "count": 5
+        },
+        "outcome.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "issuer_declined",
+            "authorized",
+            "authorized"
+          ],
+          "count": 5
+        },
+        "paid": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            true,
+            true
+          ],
+          "count": 5
+        },
+        "payment_intent": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pi_3SvzTFCvIz0R73VS1EQ673nG",
+            "pi_3Svo5ECvIz0R73VS0qfJfMC1",
+            "pi_3SuawPCvIz0R73VS13fXq6hP"
+          ],
+          "count": 5
+        },
+        "payment_method": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pm_1SvzTFCvIz0R73VStGDHCA1F",
+            "pm_1Svo5DCvIz0R73VSVyLTzIYp",
+            "pm_1SuawPCvIz0R73VScYhk32vR"
+          ],
+          "count": 5
+        },
+        "payment_method_details.amazon_pay.funding.type": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "payment_method_details.amazon_pay.transaction_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "payment_method_details.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "amazon_pay",
+            "mb_way",
+            "card"
+          ],
+          "count": 5
+        },
+        "radar_options": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 5
+        },
+        "receipt_email": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "receipt_number": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "1765-4375",
+            "1056-8354"
+          ],
+          "count": 5
+        },
+        "receipt_url": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "https://pay.stripe.com/receipts/payment/CAcQARoXChVhY2N0XzFTdVVYeEN2SXowUjczVlMovueLzAYyBqnqAZ-ydjosFoEZcu5loREi6cTKrIj9Qorpp9H98jGW6LvtNCyqy5WR2VVo0UmXvnAeQfU",
+            "https://pay.stripe.com/receipts/payment/CAcQARoXChVhY2N0XzFTdVVYeEN2SXowUjczVlMovueLzAYyBkhzzdo8TTosFmmohacWNRO5v8Rpy58qA8FeBhgaVKuehc9OLWHTSfxoeuE16PivXt9_lc8"
+          ],
+          "count": 5
+        },
+        "refunded": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 5
+        },
+        "review": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "shipping": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "source": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "source_transfer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "statement_descriptor": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "statement_descriptor_suffix": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "failed",
+            "succeeded",
+            "succeeded"
+          ],
+          "count": 5
+        },
+        "transfer_data": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "transfer_group": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 5
+        },
+        "payment_method_details.mb_way": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.amount_authorized": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1500,
+            1500
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.authorization_code": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "215723",
+            "180681"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.brand": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "visa",
+            "visa"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.checks.address_line1_check": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unavailable",
+            "unavailable"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.checks.address_postal_code_check": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unavailable",
+            "unavailable"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.checks.cvc_check": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.country": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "PT",
+            "PT"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.exp_month": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            12,
+            12
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.exp_year": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            2031,
+            2031
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.extended_authorization.status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "disabled",
+            "disabled"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.fingerprint": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "77kNesm1nxRiY52P",
+            "77kNesm1nxRiY52P"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.funding": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "debit",
+            "debit"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.incremental_authorization.status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unavailable",
+            "unavailable"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.installments": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.last4": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "4378",
+            "4378"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.mandate": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.multicapture.status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unavailable",
+            "unavailable"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.network": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "visa",
+            "visa"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.network_token.used": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.network_transaction_id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "486028567629288",
+            "486028489233984"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.overcapture.maximum_amount_capturable": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1500,
+            1500
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.overcapture.status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unavailable",
+            "unavailable"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.regulated_status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unregulated",
+            "unregulated"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.three_d_secure": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.wallet.apple_pay.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "apple_pay",
+            "apple_pay"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.wallet.dynamic_last4": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "0294",
+            "0294"
+          ],
+          "count": 2
+        },
+        "payment_method_details.card.wallet.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "apple_pay",
+            "apple_pay"
+          ],
+          "count": 2
+        }
+      }
+    },
+    "checkout_sessions": {
+      "label": "Checkout Session",
+      "sample_count": 45,
+      "fields": {
+        "id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "cs_live_b1UagEUqBiVtAvM5fifg90KbJ5A0jRTupgTOPFizfd8TNO4SbFdCAJLrsF",
+            "cs_live_b1aG8tkgErmPLKIAlSWjZb8xj0CaX3HbqjbDd5TJYRiJZcOJxqt7P0A5v2",
+            "cs_live_b1T9B29F70sgilGVGUZGufIA66zzPATyK3imvp66uiFXfyo1bruogvIw5J"
+          ],
+          "count": 45
+        },
+        "object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "checkout.session",
+            "checkout.session",
+            "checkout.session"
+          ],
+          "count": 45
+        },
+        "adaptive_pricing.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 45
+        },
+        "after_expiration": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "allow_promotion_codes": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 45
+        },
+        "amount_subtotal": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 45
+        },
+        "amount_total": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 45
+        },
+        "automatic_tax.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 45
+        },
+        "automatic_tax.liability": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 36
+        },
+        "automatic_tax.provider": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "automatic_tax.status": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "billing_address_collection": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "auto",
+            "auto",
+            "auto"
+          ],
+          "count": 45
+        },
+        "cancel_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://stripe.com",
+            "https://stripe.com",
+            "https://stripe.com"
+          ],
+          "count": 45
+        },
+        "client_reference_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "client_secret": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "collected_information": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 42
+        },
+        "consent": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "consent_collection.payment_method_reuse_agreement": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "consent_collection.promotions": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "none",
+            "none",
+            "none"
+          ],
+          "count": 45
+        },
+        "consent_collection.terms_of_service": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "none",
+            "none",
+            "none"
+          ],
+          "count": 45
+        },
+        "created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1770185827,
+            1770153585,
+            1770105351
+          ],
+          "count": 45
+        },
+        "currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur",
+            "eur",
+            "eur"
+          ],
+          "count": 45
+        },
+        "currency_conversion": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "custom_fields": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>",
+            "<list len=1>",
+            "<list len=1>"
+          ],
+          "count": 45
+        },
+        "custom_fields[].key": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "umamensagemparaabia",
+            "umamensagemparaabia",
+            "umamensagemparaabia"
+          ],
+          "count": 44
+        },
+        "custom_fields[].label.custom": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "A Bia vai adorar ler a tua mensagem 💛:",
+            "A Bia vai adorar ler a tua mensagem 💛:",
+            "A Bia vai adorar ler a tua mensagem 💛:"
+          ],
+          "count": 44
+        },
+        "custom_fields[].label.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "custom",
+            "custom",
+            "custom"
+          ],
+          "count": 44
+        },
+        "custom_fields[].optional": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 44
+        },
+        "custom_fields[].text.default_value": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨",
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨",
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨"
+          ],
+          "count": 44
+        },
+        "custom_fields[].text.maximum_length": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            255,
+            255,
+            255
+          ],
+          "count": 44
+        },
+        "custom_fields[].text.minimum_length": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 44
+        },
+        "custom_fields[].text.value": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 44
+        },
+        "custom_fields[].type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "text",
+            "text",
+            "text"
+          ],
+          "count": 44
+        },
+        "custom_text.after_submit": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "custom_text.shipping_address": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "custom_text.submit": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "custom_text.terms_of_service_acceptance": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "customer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "customer_account": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "customer_creation": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "if_required",
+            "if_required",
+            "if_required"
+          ],
+          "count": 45
+        },
+        "customer_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 38
+        },
+        "customer_email": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "discounts": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=0>",
+            "<list len=0>",
+            "<list len=0>"
+          ],
+          "count": 45
+        },
+        "expires_at": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1770272227,
+            1770239985,
+            1770191750
+          ],
+          "count": 45
+        },
+        "invoice": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "invoice_creation.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.account_tax_ids": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.custom_fields": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.description": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.footer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.issuer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 45
+        },
+        "invoice_creation.invoice_data.rendering_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 45
+        },
+        "locale": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "auto",
+            "auto",
+            "auto"
+          ],
+          "count": 45
+        },
+        "metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 45
+        },
+        "mode": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payment",
+            "payment",
+            "payment"
+          ],
+          "count": 45
+        },
+        "name_collection.individual.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 44
+        },
+        "name_collection.individual.optional": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 44
+        },
+        "origin_context": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "payment_intent": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "payment_link": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "plink_1SuW0mCvIz0R73VSwLN1FBZB",
+            "plink_1SuW0mCvIz0R73VSwLN1FBZB",
+            "plink_1SuW0mCvIz0R73VSwLN1FBZB"
+          ],
+          "count": 45
+        },
+        "payment_method_collection": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "if_required",
+            "if_required",
+            "if_required"
+          ],
+          "count": 45
+        },
+        "payment_method_configuration_details.id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pmc_1SuUYTCvIz0R73VS2naTrwVd",
+            "pmc_1SuUYTCvIz0R73VS2naTrwVd",
+            "pmc_1SuUYTCvIz0R73VS2naTrwVd"
+          ],
+          "count": 43
+        },
+        "payment_method_configuration_details.parent": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 43
+        },
+        "payment_method_options.card.request_three_d_secure": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            "automatic",
+            "automatic"
+          ],
+          "count": 40
+        },
+        "payment_method_types": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=6>",
+            "<list len=6>",
+            "<list len=6>"
+          ],
+          "count": 45
+        },
+        "payment_method_types[]": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "card",
+            "multibanco",
+            "mb_way"
+          ],
+          "count": 135
+        },
+        "payment_status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unpaid",
+            "unpaid",
+            "unpaid"
+          ],
+          "count": 45
+        },
+        "permissions": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "phone_number_collection.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 45
+        },
+        "recovered_from": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "saved_payment_method_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "setup_intent": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "shipping_address_collection": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "shipping_cost": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "shipping_options": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=0>",
+            "<list len=0>",
+            "<list len=0>"
+          ],
+          "count": 45
+        },
+        "status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "open",
+            "open",
+            "open"
+          ],
+          "count": 45
+        },
+        "submit_type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "donate",
+            "donate",
+            "donate"
+          ],
+          "count": 45
+        },
+        "subscription": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "success_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://stripe.com",
+            "https://stripe.com",
+            "https://stripe.com"
+          ],
+          "count": 45
+        },
+        "total_details.amount_discount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 45
+        },
+        "total_details.amount_shipping": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 45
+        },
+        "total_details.amount_tax": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 45
+        },
+        "ui_mode": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "hosted",
+            "hosted",
+            "hosted"
+          ],
+          "count": 45
+        },
+        "url": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "https://checkout.stripe.com/c/pay/cs_live_b1UagEUqBiVtAvM5fifg90KbJ5A0jRTupgTOPFizfd8TNO4SbFdCAJLrsF#fidpamZkaWAnPydkcHFqJyknZHVsTmB8Jz8ndW5aaWxzYFowNFZwUF19RnNMfzVXMjZTVlYzUmlnbUp8PVVwfFY2Z0dRalI3Y10yPUtvS0JoTVFMU3RnNjRVTWJQQk1%2Fb3R8PGxCdkB2QVVwbGNHVGhWQGJGXEMyd3RUUTU1Z0xqRk5NTTAnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
+            "https://checkout.stripe.com/c/pay/cs_live_b1aG8tkgErmPLKIAlSWjZb8xj0CaX3HbqjbDd5TJYRiJZcOJxqt7P0A5v2#fidpamZkaWAnPydkcHFqJyknZHVsTmB8Jz8ndW5aaWxzYFowNFZwUF19RnNMfzVXMjZTVlYzUmlnbUp8PVVwfFY2Z0dRalI3Y10yPUtvS0JoTVFMU3RnNjRVTWJQQk1%2Fb3R8PGxCdkB2QVVwbGNHVGhWQGJGXEMyd3RUUTU1Z0xqRk5NTTAnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
+            "https://checkout.stripe.com/c/pay/cs_live_b1T9B29F70sgilGVGUZGufIA66zzPATyK3imvp66uiFXfyo1bruogvIw5J#fidpamZkaWAnPydkcHFqJyknZHVsTmB8Jz8ndW5aaWxzYFowNFZwUF19RnNMfzVXMjZTVlYzUmlnbUp8PVVwfFY2Z0dRalI3Y10yPUtvS0JoTVFMU3RnNjRVTWJQQk1%2Fb3R8PGxCdkB2QVVwbGNHVGhWQGJGXEMyd3RUUTU1Z0xqRk5NTTAnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+          ],
+          "count": 45
+        },
+        "wallet_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 45
+        },
+        "customer_details.address": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "customer_details.business_name": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "customer_details.email": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "julioan@icloud.com",
+            "fgh@yui.po",
+            "gtrg@uiic.com"
+          ],
+          "count": 7
+        },
+        "customer_details.individual_name": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "customer_details.name": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "customer_details.phone": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "customer_details.tax_exempt": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "none",
+            "none",
+            "none"
+          ],
+          "count": 7
+        },
+        "customer_details.tax_ids": {
+          "types": [
+            "NoneType",
+            "list"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "payment_method_options": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 5
+        },
+        "collected_information.business_name": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "collected_information.individual_name": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "Nádia Neto",
+            "Júlio Neves ",
+            "Júlio Neves - Teste"
+          ],
+          "count": 3
+        },
+        "collected_information.shipping_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "customer_details.address.city": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "Senhora da Hora",
+            null
+          ],
+          "count": 4
+        },
+        "customer_details.address.country": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "PT",
+            null
+          ],
+          "count": 4
+        },
+        "customer_details.address.line1": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "Rua Nova do Seixo",
+            null
+          ],
+          "count": 4
+        },
+        "customer_details.address.line2": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "279 - 2D",
+            null
+          ],
+          "count": 4
+        },
+        "customer_details.address.postal_code": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "4460-383",
+            null
+          ],
+          "count": 4
+        },
+        "customer_details.address.state": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "",
+            null
+          ],
+          "count": 4
+        },
+        "payment_method_configuration_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "automatic_tax.liability.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "self",
+            "self",
+            "self"
+          ],
+          "count": 9
+        }
+      }
+    },
+    "payment_intents": {
+      "label": "Payment Intent",
+      "sample_count": 7,
+      "fields": {
+        "id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pi_3SwRMGCvIz0R73VS1DovRheV",
+            "pi_3SvzvDCvIz0R73VS1tjOmGX2",
+            "pi_3SvzTFCvIz0R73VS1EQ673nG"
+          ],
+          "count": 7
+        },
+        "object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payment_intent",
+            "payment_intent",
+            "payment_intent"
+          ],
+          "count": 7
+        },
+        "amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 7
+        },
+        "amount_capturable": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 7
+        },
+        "amount_details.shipping.amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 7
+        },
+        "amount_details.shipping.from_postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "amount_details.shipping.to_postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "amount_details.tax.total_tax_amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 7
+        },
+        "amount_details.tip": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 7
+        },
+        "amount_received": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 7
+        },
+        "application": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "application_fee_amount": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "automatic_payment_methods": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "canceled_at": {
+          "types": [
+            "NoneType",
+            "int"
+          ],
+          "examples": [
+            1770141362,
+            1770035897,
+            1770034148
+          ],
+          "count": 7
+        },
+        "cancellation_reason": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            "automatic",
+            "automatic"
+          ],
+          "count": 7
+        },
+        "capture_method": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic_async",
+            "automatic_async",
+            "automatic_async"
+          ],
+          "count": 7
+        },
+        "client_secret": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pi_3SwRMGCvIz0R73VS1DovRheV_secret_MBl0eBoGlhHzoW47IxutcCzuA",
+            "pi_3SvzvDCvIz0R73VS1tjOmGX2_secret_ol3A9bkI89TH1ufXgGWpndUf9",
+            "pi_3SvzTFCvIz0R73VS1EQ673nG_secret_Xqoi12Ac9tPbvfuz1UOYkfBeS"
+          ],
+          "count": 7
+        },
+        "confirmation_method": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            "automatic",
+            "automatic"
+          ],
+          "count": 7
+        },
+        "created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1770054980,
+            1769949515,
+            1769947781
+          ],
+          "count": 7
+        },
+        "currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur",
+            "eur",
+            "eur"
+          ],
+          "count": 7
+        },
+        "customer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "customer_account": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "description": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "excluded_payment_method_types": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "last_payment_error": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "latest_charge": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            "py_3SvzTFCvIz0R73VS1Dcj9bxQ"
+          ],
+          "count": 7
+        },
+        "livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 7
+        },
+        "metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 7
+        },
+        "next_action": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "on_behalf_of": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "payment_details.customer_reference": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "payment_details.order_reference": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "prod_TsGUjuZ74ZiLR6",
+            "prod_TsGUjuZ74ZiLR6",
+            "prod_TsGUjuZ74ZiLR6"
+          ],
+          "count": 7
+        },
+        "payment_method": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "pm_1SwRMFCvIz0R73VSWz5760WV",
+            "pm_1SvzvDCvIz0R73VSaaeI9DSs",
+            null
+          ],
+          "count": 7
+        },
+        "payment_method_configuration_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "payment_method_options.klarna.preferred_locale": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_types": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>",
+            "<list len=1>",
+            "<list len=1>"
+          ],
+          "count": 7
+        },
+        "payment_method_types[]": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "klarna",
+            "klarna",
+            "amazon_pay"
+          ],
+          "count": 7
+        },
+        "processing": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "receipt_email": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "review": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "setup_future_usage": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "shipping": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "source": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "statement_descriptor": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "statement_descriptor_suffix": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "canceled",
+            "canceled",
+            "canceled"
+          ],
+          "count": 7
+        },
+        "transfer_data": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "transfer_group": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 7
+        },
+        "payment_method_options.amazon_pay.express_checkout_element_session_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "payment_method_options.mb_way": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 2
+        },
+        "payment_method_options.card.installments": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_options.card.mandate_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_options.card.network": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null
+          ],
+          "count": 2
+        },
+        "payment_method_options.card.request_three_d_secure": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            "automatic"
+          ],
+          "count": 2
+        }
+      }
+    },
+    "customers": {
+      "label": "Customer",
+      "sample_count": 0,
+      "fields": {}
+    },
+    "invoices": {
+      "label": "Invoice",
+      "sample_count": 0,
+      "fields": {}
+    },
+    "payouts": {
+      "label": "Payout",
+      "sample_count": 1,
+      "fields": {
+        "id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "po_1SuvXsCvIz0R73VSEGFD0pQe"
+          ],
+          "count": 1
+        },
+        "object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payout"
+          ],
+          "count": 1
+        },
+        "amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            2928
+          ],
+          "count": 1
+        },
+        "application_fee": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "application_fee_amount": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "arrival_date": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1769694498
+          ],
+          "count": 1
+        },
+        "automatic": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false
+          ],
+          "count": 1
+        },
+        "balance_transaction": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "txn_1SuvXsCvIz0R73VSujItDjpH"
+          ],
+          "count": 1
+        },
+        "created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1769694364
+          ],
+          "count": 1
+        },
+        "currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur"
+          ],
+          "count": 1
+        },
+        "description": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "Teste 3 x"
+          ],
+          "count": 1
+        },
+        "destination": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "ba_1SuV6xCvIz0R73VS8s8y70kK"
+          ],
+          "count": 1
+        },
+        "failure_balance_transaction": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "failure_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "failure_message": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true
+          ],
+          "count": 1
+        },
+        "metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>"
+          ],
+          "count": 1
+        },
+        "method": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "instant"
+          ],
+          "count": 1
+        },
+        "original_payout": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "payout_method": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "reconciliation_status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "not_applicable"
+          ],
+          "count": 1
+        },
+        "reversed_by": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "source_type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "card"
+          ],
+          "count": 1
+        },
+        "statement_descriptor": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "paid"
+          ],
+          "count": 1
+        },
+        "trace_id.status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "supported"
+          ],
+          "count": 1
+        },
+        "trace_id.value": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "QYCWKBSMKORIMOZ2KCGFCPZMOEMEDRE2UQA"
+          ],
+          "count": 1
+        },
+        "type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "bank_account"
+          ],
+          "count": 1
+        }
+      }
+    },
+    "events": {
+      "label": "Event",
+      "sample_count": 50,
+      "fields": {
+        "id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "evt_1SwuRcCvIz0R73VSeAjxisg2",
+            "evt_1SwnpXCvIz0R73VSvcEauN8C",
+            "evt_3SwRMGCvIz0R73VS11z9fGv8"
+          ],
+          "count": 50
+        },
+        "object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "event",
+            "event",
+            "event"
+          ],
+          "count": 50
+        },
+        "api_version": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "2025-12-15.clover",
+            "2025-12-15.clover",
+            "2025-12-15.clover"
+          ],
+          "count": 50
+        },
+        "created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1770166788,
+            1770141363,
+            1770141362
+          ],
+          "count": 50
+        },
+        "data.object.object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "balance",
+            "checkout.session",
+            "payment_intent"
+          ],
+          "count": 50
+        },
+        "data.object.available": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>"
+          ],
+          "count": 1
+        },
+        "data.object.available[].amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0
+          ],
+          "count": 1
+        },
+        "data.object.available[].currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur"
+          ],
+          "count": 1
+        },
+        "data.object.available[].source_types.card": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0
+          ],
+          "count": 1
+        },
+        "data.object.instant_available": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>"
+          ],
+          "count": 1
+        },
+        "data.object.instant_available[].amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1447
+          ],
+          "count": 1
+        },
+        "data.object.instant_available[].currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur"
+          ],
+          "count": 1
+        },
+        "data.object.instant_available[].source_types.card": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1447
+          ],
+          "count": 1
+        },
+        "data.object.livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 50
+        },
+        "data.object.pending": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>"
+          ],
+          "count": 1
+        },
+        "data.object.pending[].amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1497
+          ],
+          "count": 1
+        },
+        "data.object.pending[].currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur"
+          ],
+          "count": 1
+        },
+        "data.object.pending[].source_types.card": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1497
+          ],
+          "count": 1
+        },
+        "data.object.refund_and_dispute_prefunding.available": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>"
+          ],
+          "count": 1
+        },
+        "data.object.refund_and_dispute_prefunding.available[].amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0
+          ],
+          "count": 1
+        },
+        "data.object.refund_and_dispute_prefunding.available[].currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur"
+          ],
+          "count": 1
+        },
+        "data.object.refund_and_dispute_prefunding.pending": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>"
+          ],
+          "count": 1
+        },
+        "data.object.refund_and_dispute_prefunding.pending[].amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0
+          ],
+          "count": 1
+        },
+        "data.object.refund_and_dispute_prefunding.pending[].currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur"
+          ],
+          "count": 1
+        },
+        "livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 50
+        },
+        "pending_webhooks": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1,
+            1,
+            1
+          ],
+          "count": 50
+        },
+        "request.id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 50
+        },
+        "request.idempotency_key": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 50
+        },
+        "type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "balance.available",
+            "checkout.session.expired",
+            "payment_intent.canceled"
+          ],
+          "count": 50
+        },
+        "data.object.id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "cs_live_b1PuGUlFNuEs5kl9CtFLxCrPAH0EtckOXOsgPkeT30n2Vq8urSxzsZYwm5",
+            "pi_3SwRMGCvIz0R73VS1DovRheV",
+            "pi_3SwRMGCvIz0R73VS1DovRheV"
+          ],
+          "count": 49
+        },
+        "data.object.adaptive_pricing.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            true,
+            true
+          ],
+          "count": 33
+        },
+        "data.object.after_expiration": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.allow_promotion_codes": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 33
+        },
+        "data.object.amount_subtotal": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 33
+        },
+        "data.object.amount_total": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 33
+        },
+        "data.object.automatic_tax.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 33
+        },
+        "data.object.automatic_tax.liability": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 32
+        },
+        "data.object.automatic_tax.provider": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.automatic_tax.status": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.billing_address_collection": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "auto",
+            "auto",
+            "auto"
+          ],
+          "count": 33
+        },
+        "data.object.cancel_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://stripe.com",
+            "https://stripe.com",
+            "https://stripe.com"
+          ],
+          "count": 33
+        },
+        "data.object.client_reference_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.client_secret": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "pi_3SwRMGCvIz0R73VS1DovRheV_secret_MBl0eBoGlhHzoW47IxutcCzuA",
+            "pi_3SwRMGCvIz0R73VS1DovRheV_secret_MBl0eBoGlhHzoW47IxutcCzuA"
+          ],
+          "count": 46
+        },
+        "data.object.collected_information": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 32
+        },
+        "data.object.consent": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.consent_collection.payment_method_reuse_agreement": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.consent_collection.promotions": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "none",
+            "none",
+            "none"
+          ],
+          "count": 33
+        },
+        "data.object.consent_collection.terms_of_service": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "none",
+            "none",
+            "none"
+          ],
+          "count": 33
+        },
+        "data.object.created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1770054962,
+            1770054980,
+            1770054980
+          ],
+          "count": 49
+        },
+        "data.object.currency": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "eur",
+            "eur",
+            "eur"
+          ],
+          "count": 49
+        },
+        "data.object.currency_conversion": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=1>",
+            "<list len=1>",
+            "<list len=1>"
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].key": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "umamensagemparaabia",
+            "umamensagemparaabia",
+            "umamensagemparaabia"
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].label.custom": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "A Bia vai adorar ler a tua mensagem 💛:",
+            "A Bia vai adorar ler a tua mensagem 💛:",
+            "A Bia vai adorar ler a tua mensagem 💛:"
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].label.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "custom",
+            "custom",
+            "custom"
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].optional": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].text.default_value": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨",
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨",
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨"
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].text.maximum_length": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            255,
+            255,
+            255
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].text.minimum_length": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].text.value": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "Dfgg",
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨",
+            "Partilhe aqui um carinho, um desejo ou uma memória ✨"
+          ],
+          "count": 33
+        },
+        "data.object.custom_fields[].type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "text",
+            "text",
+            "text"
+          ],
+          "count": 33
+        },
+        "data.object.custom_text.after_submit": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.custom_text.shipping_address": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.custom_text.submit": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.custom_text.terms_of_service_acceptance": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.customer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 49
+        },
+        "data.object.customer_account": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 46
+        },
+        "data.object.customer_creation": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "if_required",
+            "if_required",
+            "if_required"
+          ],
+          "count": 33
+        },
+        "data.object.customer_details.address": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.customer_details.business_name": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 4
+        },
+        "data.object.customer_details.email": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "julioan@icloud.com",
+            "fgh@yui.po",
+            "gtrg@uiic.com"
+          ],
+          "count": 4
+        },
+        "data.object.customer_details.individual_name": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 4
+        },
+        "data.object.customer_details.name": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 4
+        },
+        "data.object.customer_details.phone": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 4
+        },
+        "data.object.customer_details.tax_exempt": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "none",
+            "none",
+            "none"
+          ],
+          "count": 4
+        },
+        "data.object.customer_details.tax_ids": {
+          "types": [
+            "NoneType",
+            "list"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 4
+        },
+        "data.object.customer_email": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.discounts": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=0>",
+            "<list len=0>",
+            "<list len=0>"
+          ],
+          "count": 33
+        },
+        "data.object.expires_at": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1770141362,
+            1770035897,
+            1770034148
+          ],
+          "count": 33
+        },
+        "data.object.invoice": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.account_tax_ids": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.custom_fields": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.description": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.footer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.issuer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 33
+        },
+        "data.object.invoice_creation.invoice_data.rendering_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.locale": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "auto",
+            "auto",
+            "auto"
+          ],
+          "count": 33
+        },
+        "data.object.metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 49
+        },
+        "data.object.mode": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payment",
+            "payment",
+            "payment"
+          ],
+          "count": 33
+        },
+        "data.object.name_collection.individual.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 33
+        },
+        "data.object.name_collection.individual.optional": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 33
+        },
+        "data.object.origin_context": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.payment_intent": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "pi_3SwRMGCvIz0R73VS1DovRheV",
+            "pi_3SvzvDCvIz0R73VS1tjOmGX2",
+            "pi_3SvzTFCvIz0R73VS1EQ673nG"
+          ],
+          "count": 36
+        },
+        "data.object.payment_link": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "plink_1SuW0mCvIz0R73VSwLN1FBZB",
+            "plink_1SuW0mCvIz0R73VSwLN1FBZB",
+            "plink_1SuW0mCvIz0R73VSwLN1FBZB"
+          ],
+          "count": 33
+        },
+        "data.object.payment_method_collection": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "if_required",
+            "if_required",
+            "if_required"
+          ],
+          "count": 33
+        },
+        "data.object.payment_method_configuration_details.id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pmc_1SuUYTCvIz0R73VS2naTrwVd",
+            "pmc_1SuUYTCvIz0R73VS2naTrwVd",
+            "pmc_1SuUYTCvIz0R73VS2naTrwVd"
+          ],
+          "count": 32
+        },
+        "data.object.payment_method_configuration_details.parent": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 32
+        },
+        "data.object.payment_method_options": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 4
+        },
+        "data.object.payment_method_types": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=6>",
+            "<list len=1>",
+            "<list len=1>"
+          ],
+          "count": 46
+        },
+        "data.object.payment_method_types[]": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "card",
+            "multibanco",
+            "mb_way"
+          ],
+          "count": 112
+        },
+        "data.object.payment_status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "unpaid",
+            "unpaid",
+            "unpaid"
+          ],
+          "count": 33
+        },
+        "data.object.permissions": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.phone_number_collection.enabled": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 33
+        },
+        "data.object.recovered_from": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.saved_payment_method_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.setup_intent": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.shipping_address_collection": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.shipping_cost": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.shipping_options": {
+          "types": [
+            "list"
+          ],
+          "examples": [
+            "<list len=0>",
+            "<list len=0>",
+            "<list len=0>"
+          ],
+          "count": 33
+        },
+        "data.object.status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "expired",
+            "canceled",
+            "requires_action"
+          ],
+          "count": 49
+        },
+        "data.object.submit_type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "donate",
+            "donate",
+            "donate"
+          ],
+          "count": 33
+        },
+        "data.object.subscription": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.success_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://stripe.com",
+            "https://stripe.com",
+            "https://stripe.com"
+          ],
+          "count": 33
+        },
+        "data.object.total_details.amount_discount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 33
+        },
+        "data.object.total_details.amount_shipping": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 33
+        },
+        "data.object.total_details.amount_tax": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 33
+        },
+        "data.object.ui_mode": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "hosted",
+            "hosted",
+            "hosted"
+          ],
+          "count": 33
+        },
+        "data.object.url": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.wallet_options": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 33
+        },
+        "data.object.amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 16
+        },
+        "data.object.amount_capturable": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 13
+        },
+        "data.object.amount_details.shipping.amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 9
+        },
+        "data.object.amount_details.shipping.from_postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 9
+        },
+        "data.object.amount_details.shipping.to_postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 9
+        },
+        "data.object.amount_details.tax.total_tax_amount": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 9
+        },
+        "data.object.amount_details.tip": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 13
+        },
+        "data.object.amount_received": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 13
+        },
+        "data.object.application": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.application_fee_amount": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.automatic_payment_methods": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.canceled_at": {
+          "types": [
+            "NoneType",
+            "int"
+          ],
+          "examples": [
+            1770141362,
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.cancellation_reason": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.capture_method": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic_async",
+            "automatic_async",
+            "automatic_async"
+          ],
+          "count": 13
+        },
+        "data.object.confirmation_method": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            "automatic",
+            "automatic"
+          ],
+          "count": 13
+        },
+        "data.object.description": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.excluded_payment_method_types": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.last_payment_error": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 12
+        },
+        "data.object.latest_charge": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.next_action": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 9
+        },
+        "data.object.on_behalf_of": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.payment_details.customer_reference": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 9
+        },
+        "data.object.payment_details.order_reference": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "prod_TsGUjuZ74ZiLR6",
+            "prod_TsGUjuZ74ZiLR6",
+            "prod_TsGUjuZ74ZiLR6"
+          ],
+          "count": 9
+        },
+        "data.object.payment_method": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "pm_1SwRMFCvIz0R73VSWz5760WV",
+            "pm_1SwRMFCvIz0R73VSWz5760WV",
+            null
+          ],
+          "count": 16
+        },
+        "data.object.payment_method_configuration_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 14
+        },
+        "data.object.payment_method_options.klarna.preferred_locale": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 6
+        },
+        "data.object.processing": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.receipt_email": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.review": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.setup_future_usage": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 13
+        },
+        "data.object.shipping": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.source": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.statement_descriptor": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.statement_descriptor_suffix": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.transfer_data": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.transfer_group": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 16
+        },
+        "data.object.next_action.redirect_to_url.return_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://donate.stripe.com/c/pay/cs_live_b1PuGUlFNuEs5kl9CtFLxCrPAH0EtckOXOsgPkeT30n2Vq8urSxzsZYwm5?redirect_pm_type=klarna&lid=831243a6-c535-47e9-96d5-aac75c5eec0c&ui_mode=hosted#fidpamZkaWAnPydkcHFqJyknZHVsTmB8Jz8ndW5aaWxzYFowNFZwUF19RnNMfzVXMjZTVlYzUmlnbUp8PVVwfFY2Z0dRalI3Y10yPUtvS0JoTVFMU3RnNjRVTWJQQk1%2Fb3R8PGxCdkB2QVVwbGNHVGhWQGJGXEMyd3RUUTU1Z0xqRk5NTTAnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
+            "https://donate.stripe.com/c/pay/cs_live_b1ewq6ERTqipH14RUN4ioL5N7Q5vj20wa86pkfFqAn3OA7SDOVujsbWSIT?redirect_pm_type=klarna&lid=d7ff9fd4-a50d-4366-a9f7-af4e6d37bcfe&ui_mode=hosted#fidpamZkaWAnPydkcHFqJyknZHVsTmB8Jz8ndW5aaWxzYFowNFZwUF19RnNMfzVXMjZTVlYzUmlnbUp8PVVwfFY2Z0dRalI3Y10yPUtvS0JoTVFMU3RnNjRVTWJQQk1%2Fb3R8PGxCdkB2QVVwbGNHVGhWQGJGXEMyd3RUUTU1Z0xqRk5NTTAnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
+            "https://donate.stripe.com/c/pay/cs_live_b165LwnT19Qf0ORMmhoQVY3ZjeFtnwR5arm6p9RlfwfkxAl8wyQ4ET112D?redirect_pm_type=amazon_pay&lid=d9d81bab-5824-4a46-bd95-a611b55ac452&ui_mode=hosted#fidpamZkaWAnPydkcHFqJyknZHVsTmB8Jz8ndW5aaWxzYFowNFZwUF19RnNMfzVXMjZTVlYzUmlnbUp8PVVwfFY2Z0dRalI3Y10yPUtvS0JoTVFMU3RnNjRVTWJQQk1%2Fb3R8PGxCdkB2QVVwbGNHVGhWQGJGXEMyd3RUUTU1Z0xqRk5NTTAnKSdjd2poVmB3c2B3Jz9xd3BgKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+          ],
+          "count": 3
+        },
+        "data.object.next_action.redirect_to_url.url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://pm-redirects.stripe.com/authorize/acct_1SuUXxCvIz0R73VS/pa_nonce_TuFs2XSVvIaImHf2w039I67SyP5khIy?useWebAuthSession=true&followRedirectsInSDK=true",
+            "https://pm-redirects.stripe.com/authorize/acct_1SuUXxCvIz0R73VS/pa_nonce_TtnWnXKwIuvvvwJ0ZQpemj9DPdYwW9B?useWebAuthSession=true&followRedirectsInSDK=true",
+            "https://pm-redirects.stripe.com/authorize/acct_1SuUXxCvIz0R73VS/pa_nonce_Ttn3GqnjtIBWVUKWddOjhjiXoUDB0ei"
+          ],
+          "count": 3
+        },
+        "data.object.next_action.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "redirect_to_url",
+            "redirect_to_url",
+            "redirect_to_url"
+          ],
+          "count": 4
+        },
+        "data.object.payment_method_options.amazon_pay.express_checkout_element_session_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 4
+        },
+        "data.object.customer_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 29
+        },
+        "data.object.payment_method_options.card.request_three_d_secure": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "automatic",
+            "automatic",
+            "automatic"
+          ],
+          "count": 29
+        },
+        "data.object.amount_captured": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1545,
+            1545,
+            1545
+          ],
+          "count": 3
+        },
+        "data.object.amount_refunded": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            0,
+            0,
+            0
+          ],
+          "count": 3
+        },
+        "data.object.application_fee": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.balance_transaction": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "txn_3Svo5ECvIz0R73VS0UWslpnA",
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.address.city": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.address.country": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.address.line1": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.address.line2": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.address.postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.address.state": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.email": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "gtrg@uiic.com",
+            "nadia_18neto@hotmail.com",
+            "nadia_18neto@hotmail.com"
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.name": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.phone": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "+351915436483",
+            "+351915436483"
+          ],
+          "count": 3
+        },
+        "data.object.billing_details.tax_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.calculated_statement_descriptor": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.captured": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true,
+            true,
+            true
+          ],
+          "count": 3
+        },
+        "data.object.destination": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.dispute": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.disputed": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 3
+        },
+        "data.object.failure_balance_transaction": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.failure_code": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "payment_intent_payment_attempt_expired",
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.failure_message": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "The latest payment attempt of this PaymentIntent has expired. You can provide payment_method_data or a new PaymentMethod to attempt to fulfill this PaymentIntent again.",
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.fraud_details": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 3
+        },
+        "data.object.order": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.outcome.advice_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.outcome.network_advice_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.outcome.network_decline_code": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "",
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.outcome.network_status": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "declined_by_network",
+            "approved_by_network",
+            "approved_by_network"
+          ],
+          "count": 3
+        },
+        "data.object.outcome.reason": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            "generic_decline",
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.outcome.risk_level": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "not_assessed",
+            "not_assessed",
+            "not_assessed"
+          ],
+          "count": 3
+        },
+        "data.object.outcome.seller_message": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "The bank did not return any further details with this decline.",
+            "Payment complete.",
+            "Payment complete."
+          ],
+          "count": 3
+        },
+        "data.object.outcome.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "issuer_declined",
+            "authorized",
+            "authorized"
+          ],
+          "count": 3
+        },
+        "data.object.paid": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            true,
+            true
+          ],
+          "count": 3
+        },
+        "data.object.payment_method_details.amazon_pay.funding.type": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.payment_method_details.amazon_pay.transaction_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.payment_method_details.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "amazon_pay",
+            "mb_way",
+            "mb_way"
+          ],
+          "count": 3
+        },
+        "data.object.radar_options": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 3
+        },
+        "data.object.receipt_number": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.receipt_url": {
+          "types": [
+            "NoneType",
+            "str"
+          ],
+          "examples": [
+            null,
+            "https://pay.stripe.com/receipts/payment/CAcQARoXChVhY2N0XzFTdVVYeEN2SXowUjczVlMonq_6ywYyBvHiVksxSDosFpUXNQq0Jp3fXJdPDkYrF1_32PdOc4wqFtrL0u6xsBROD5S6ruUKKbNmAu0",
+            "https://pay.stripe.com/receipts/payment/CAcQARoXChVhY2N0XzFTdVVYeEN2SXowUjczVlMom6_6ywYyBqdROyNeujosFn-yJN8gG1remLs2__n6S_PTVpG4WnE75N-2uT-y5CV2jfktvIxaIjCwp0w"
+          ],
+          "count": 3
+        },
+        "data.object.refunded": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            false,
+            false,
+            false
+          ],
+          "count": 3
+        },
+        "data.object.source_transfer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null,
+            null,
+            null
+          ],
+          "count": 3
+        },
+        "data.object.last_payment_error.code": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payment_intent_payment_attempt_failed"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.decline_code": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payment_intent_payment_attempt_expired"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.doc_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://stripe.com/docs/error-codes/payment-intent-payment-attempt-failed"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.message": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "The latest payment attempt of this PaymentIntent has expired. You can provide payment_method_data or a new PaymentMethod to attempt to fulfill this PaymentIntent again."
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.id": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "pm_1SvzTFCvIz0R73VStGDHCA1F"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.object": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "payment_method"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.allow_redisplay": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "limited"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.amazon_pay": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.address.city": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.address.country": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.address.line1": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.address.line2": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.address.postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.address.state": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.email": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "gtrg@uiic.com"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.name": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.phone": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.billing_details.tax_id": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.created": {
+          "types": [
+            "int"
+          ],
+          "examples": [
+            1769947781
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.customer": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.customer_account": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.livemode": {
+          "types": [
+            "bool"
+          ],
+          "examples": [
+            true
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.metadata": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.payment_method.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "amazon_pay"
+          ],
+          "count": 1
+        },
+        "data.object.last_payment_error.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "card_error"
+          ],
+          "count": 1
+        },
+        "data.object.payment_method_details.mb_way": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 2
+        },
+        "data.previous_attributes.balance_transaction": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.previous_attributes.receipt_url": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "https://pay.stripe.com/receipts/payment/CAcQARoXChVhY2N0XzFTdVVYeEN2SXowUjczVlMonq_6ywYyBour1tYulzosFhn-Qpm7_Ucv-rWPQhCHGCTve6F_RVTyQdQPKwq2xGycZSjTwxxBDdvW-Ec"
+          ],
+          "count": 1
+        },
+        "data.object.collected_information.business_name": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.collected_information.individual_name": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "Nádia Neto"
+          ],
+          "count": 1
+        },
+        "data.object.collected_information.shipping_details": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.customer_details.address.city": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.customer_details.address.country": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.customer_details.address.line1": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.customer_details.address.line2": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.customer_details.address.postal_code": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.customer_details.address.state": {
+          "types": [
+            "NoneType"
+          ],
+          "examples": [
+            null
+          ],
+          "count": 1
+        },
+        "data.object.payment_method_options.mb_way": {
+          "types": [
+            "dict"
+          ],
+          "examples": [
+            "<dict keys=0>",
+            "<dict keys=0>",
+            "<dict keys=0>"
+          ],
+          "count": 3
+        },
+        "data.object.automatic_tax.liability.type": {
+          "types": [
+            "str"
+          ],
+          "examples": [
+            "self"
+          ],
+          "count": 1
+        }
+      }
+    }
+  }
+}

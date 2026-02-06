@@ -1,6 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
+from typing import List, Optional
 
 load_dotenv()
 
@@ -131,6 +132,46 @@ def create_field(table_id, field_payload):
     resp = requests.post(url, headers=_headers(api_key), json=field_payload, timeout=30)
     resp.raise_for_status()
     return resp.json()
+
+
+def get_airtable_records(
+    table: str,
+    *,
+    max_records: Optional[int] = 100,
+    view: Optional[str] = None,
+    fields: Optional[List[str]] = None,
+    filter_formula: Optional[str] = None,
+) -> list:
+    """Retrieve raw Airtable records with pagination support."""
+    api_key, base_id = get_airtable_config()
+    url = _table_url(base_id, table)
+    params = {}
+    if view:
+        params["view"] = view
+    if fields:
+        params["fields[]"] = fields
+    if filter_formula:
+        params["filterByFormula"] = filter_formula
+
+    records = []
+    offset = None
+    while True:
+        paged_params = dict(params)
+        if offset:
+            paged_params["offset"] = offset
+        if max_records:
+            paged_params["pageSize"] = min(100, max_records - len(records))
+            if paged_params["pageSize"] <= 0:
+                break
+        resp = requests.get(url, headers=_headers(api_key), params=paged_params, timeout=30)
+        resp.raise_for_status()
+        payload = resp.json()
+        records.extend(payload.get("records", []))
+        offset = payload.get("offset")
+        if not offset or (max_records and len(records) >= max_records):
+            break
+
+    return records if not max_records else records[:max_records]
 
 
 def upload_attachment_to_record(table: str, record_id: str, pdf_bytes: bytes, filename: str = "ticket.pdf"):

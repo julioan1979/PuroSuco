@@ -97,15 +97,18 @@ def get_ticket_data(ticket_id: str) -> dict:
         
         if records:
             record = records[0]
+            fields = record.get("fields", {})
             return {
                 "success": True,
-                "ticket_id": record["fields"].get("ticket_id"),
-                "status": record["fields"].get("status", "pending"),
-                "customer_name": record["fields"].get("customer_name"),
-                "customer_email": record["fields"].get("customer_email"),
-                "validated_at": record["fields"].get("validated_at"),
-                "validated_by": record["fields"].get("validated_by"),
-                "airtable_id": record["id"]
+                "ticket_id": fields.get("ticket_id"),
+                "status": fields.get("status", "pending"),
+                "customer_name": fields.get("customer_name"),
+                "customer_email": fields.get("customer_email"),
+                "validated_at": fields.get("validated_at"),
+                "validated_by": fields.get("validated_by"),
+                "pdf_url": fields.get("pdf_url"),
+                "pdf_attachment": fields.get("pdf_attachment"),
+                "airtable_id": record.get("id")
             }
         else:
             return {"success": False, "error": f"Ticket {ticket_id} não encontrado"}
@@ -138,15 +141,18 @@ def get_ticket_by_charge_id(charge_id: str) -> dict:
 
         if records:
             record = records[0]
+            fields = record.get("fields", {})
             return {
                 "success": True,
-                "ticket_id": record["fields"].get("ticket_id"),
-                "status": record["fields"].get("status", "pending"),
-                "customer_name": record["fields"].get("customer_name"),
-                "customer_email": record["fields"].get("customer_email"),
-                "validated_at": record["fields"].get("validated_at"),
-                "validated_by": record["fields"].get("validated_by"),
-                "airtable_id": record["id"],
+                "ticket_id": fields.get("ticket_id"),
+                "status": fields.get("status", "pending"),
+                "customer_name": fields.get("customer_name"),
+                "customer_email": fields.get("customer_email"),
+                "validated_at": fields.get("validated_at"),
+                "validated_by": fields.get("validated_by"),
+                "pdf_url": fields.get("pdf_url"),
+                "pdf_attachment": fields.get("pdf_attachment"),
+                "airtable_id": record.get("id"),
                 "charge_id": charge_id
             }
         else:
